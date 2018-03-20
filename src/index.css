@@ -53,5 +53,26 @@ body {
 }
 
 /* Edit Comment */
+.close-create-comment {
+  display: block;
+  width: 60px;
+  height: 60px;
+  background-image: url('./icons/arrow-back.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30px;
+  font-size: 0;
+}
+
+.create-comment-form {
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.create-comment-details {
+  margin-left: 20px;
+}
 
 /* Comment Detail*/

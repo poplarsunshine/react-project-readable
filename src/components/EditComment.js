@@ -10,9 +10,9 @@ class EditComment extends Component {
     render() {
         return (
           <div>
-            <Link className='close-create-contact' to='/'>Close</Link>
-            <form onSubmit={this.handleSubmit} className='create-contact-form'>
-              <div className='create-contact-details'>
+            <Link className='close-create-comment' to='/'>Close</Link>
+            <form onSubmit={this.handleSubmit} className='create-comment-form'>
+              <div className='create-comment-details'>
                 <input type='text' name='name' placeholder='jack'></input>
                 <input type='text' name='comment' placeholder=''></input>
                 <button>Submit</button>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
+import { Link, Route } from 'react-router-dom'
 import CommentList from './CommentList.js'
 import EditComment from './EditComment.js'
 
@@ -9,28 +10,42 @@ class App extends Component {
     cates : ['All', 'meal', 'food', 'day']
   }
 
+  pageToEditComment = () => {
+    console.log('pageToAdd');
+  }
+
   render() {
     const { cates } = this.state
 
     return (
       <div className="App">
-        <h1>
-          Readable
-        </h1>
 
-        <ul className='readable-types'>
-          {cates.map((cate) => (
-            <li key={cate} className='subheader'>
-              {cate}
-            </li>
-          ))}
-        </ul>
+        <Route exact path='/' render={()=>(
+          <div>
+            <h1>
+              Readable
+            </h1>
+            <ul className='readable-types'>
+              {cates.map((cate) => (
+                <li key={cate} className='subheader'>
+                  {cate}
+                </li>
+              ))}
+            </ul>
+            <CommentList>
+            </CommentList>
 
-        <CommentList>
-        </CommentList>
+            <Link
+              className="open-add"
+              to='/editComment'
+            >comment</Link>
+          </div>
+        )}/>
 
-        <div className="open-add">
-        </div>
+        <Route path='/editComment' render={({ curComment })=>(
+          <EditComment
+          />
+        )}/>
       </div>
     );
   }
