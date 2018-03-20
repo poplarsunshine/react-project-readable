@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Link, Route } from 'react-router-dom'
 import CommentList from './CommentList.js'
+import CommentDetail from './CommentDetail.js'
 import EditComment from './EditComment.js'
 
 class App extends Component {
@@ -10,8 +11,8 @@ class App extends Component {
     cates : ['All', 'meal', 'food', 'day']
   }
 
-  pageToEditComment = () => {
-    console.log('pageToAdd');
+  onSelectType = (cate) => {
+    console.log('onSelectType:', cate);
   }
 
   render() {
@@ -27,7 +28,7 @@ class App extends Component {
             </h1>
             <ul className='readable-types'>
               {cates.map((cate) => (
-                <li key={cate} className='subheader'>
+                <li key={cate} onClick={() => this.onSelectType(cate)} className='subheader'>
                   {cate}
                 </li>
               ))}
@@ -44,6 +45,11 @@ class App extends Component {
 
         <Route path='/editComment' render={({ curComment })=>(
           <EditComment
+          />
+        )}/>
+
+        <Route path='/commentDetail' render={({ curComment })=>(
+          <CommentDetail
           />
         )}/>
       </div>

@@ -15,9 +15,13 @@ class CommentList extends Component {
       <div className="comments">
         <ol className='comment-list'>
           {comments.map((comment) => (
+            <Link
+              to='/commentDetail'
+            >
             <li key={comment} className='comment-grid'>
               {comment}
             </li>
+            </Link>
           ))}
         </ol>
       </div>
