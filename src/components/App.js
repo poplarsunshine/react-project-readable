@@ -23,6 +23,11 @@ class App extends Component {
     this.getPostsType(path);
   }
 
+  addPost = (post) => {
+    console.log('newPost:', post);
+    this.createPost(post);
+  }
+
   // API
   getAllCategories = () => {
     ReadableAPI.getAllCategories().then(
@@ -51,8 +56,18 @@ class App extends Component {
     )
   }
 
+  createPost = (post) => {
+    ReadableAPI.createPost(post).then(
+      (result) => {
+        console.log('result:', result);
+        this.getAllPosts();
+      }
+    )
+  }
+
   componentDidMount() {
       this.getAllCategories();
+      this.getAllPosts();
   }
 
   render() {
@@ -88,8 +103,12 @@ class App extends Component {
           </div>
         )}/>
 
-        <Route path='/editComment' render={({ curComment })=>(
+        <Route path='/editComment' render={({ history })=>(
           <EditComment
+            onCreatePost={(post) => {
+            this.addPost(post)
+            history.push('/')
+          }}
           />
         )}/>
 
