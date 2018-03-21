@@ -4,19 +4,59 @@ import { Link, Route } from 'react-router-dom'
 import CommentList from './CommentList.js'
 import CommentDetail from './CommentDetail.js'
 import EditComment from './EditComment.js'
+import API from './EditComment.js'
+import * as ReadableAPI from '../utils/api'
 
 class App extends Component {
 
   state = {
-    cates : ['All', 'meal', 'food', 'day']
+    categories : [],
+    posts : [],
   }
 
-  onSelectType = (cate) => {
-    console.log('onSelectType:', cate);
+  onSelectAllType = () => {
+    this.getAllPosts();
+  }
+
+  onSelectType = (path) => {
+    console.log('onSelectType:', path);
+    this.getPostsType(path);
+  }
+
+  // API
+  getAllCategories = () => {
+    ReadableAPI.getAllCategories().then(
+      (categories) => {
+        console.log('categories:', categories);
+        this.setState({categories})
+      }
+    )
+  }
+
+  getAllPosts = () => {
+    ReadableAPI.getAllPosts().then(
+      (posts) => {
+        console.log('posts:', posts);
+        this.setState({posts})
+      }
+    )
+  }
+
+  getPostsType = (path) => {
+    ReadableAPI.getPostsType(path).then(
+      (posts) => {
+        console.log(path, ' posts:', posts);
+        this.setState({posts})
+      }
+    )
+  }
+
+  componentDidMount() {
+      this.getAllCategories();
   }
 
   render() {
-    const { cates } = this.state
+    const { categories, posts } = this.state
 
     return (
       <div className="App">
@@ -27,13 +67,18 @@ class App extends Component {
               Readable
             </h1>
             <ul className='readable-types'>
-              {cates.map((cate) => (
-                <li key={cate} onClick={() => this.onSelectType(cate)} className='subheader'>
-                  {cate}
+              <li key={'AllPosts'} onClick={() => this.onSelectAllType()} className='subheader'>
+                {'AllPosts'}
+              </li>
+              {categories.map((cate) => (
+                <li key={cate.name} onClick={() => this.onSelectType(cate.path)} className='subheader'>
+                  {cate.name}
                 </li>
               ))}
             </ul>
-            <CommentList>
+            <CommentList
+              comments={posts}
+            >
             </CommentList>
 
             <Link

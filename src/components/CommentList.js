@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { Link, Route } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 class CommentList extends Component {
 
-  state = {
-    comments : ['coment1', 'comment2', 'coment3']
+  static propTypes = {
+    comments : PropTypes.array.isRequired,
   }
 
   render() {
-    const { comments } = this.state
+    const { comments } = this.props
 
     return (
       <div className="comments">
@@ -18,8 +19,9 @@ class CommentList extends Component {
             <Link
               to='/commentDetail'
             >
-            <li key={comment} className='comment-grid'>
-              {comment}
+            <li key={comment.id} className='comment-grid'>
+              {comment.title
+                + '\n' + comment.body}
             </li>
             </Link>
           ))}
