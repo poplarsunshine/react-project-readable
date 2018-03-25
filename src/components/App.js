@@ -65,6 +65,37 @@ class App extends Component {
     )
   }
 
+  postUpVote = (post) => {
+    ReadableAPI.postUpVote(post).then(
+      (result) => {
+        console.log('result:', result);
+        this.getAllPosts();
+      }
+    )
+  }
+
+  postDownVote = (post) => {
+    ReadableAPI.postDownVote(post).then(
+      (result) => {
+        console.log('result:', result);
+        this.getAllPosts();
+      }
+    )
+  }
+
+  postEdit = (post) => {
+    console.log('postEdit ID:', post.id);
+  }
+
+  postDelete = (post) => {
+    ReadableAPI.postDelete(post).then(
+      (result) => {
+        console.log('result:', result);
+        this.getAllPosts();
+      }
+    )
+  }
+
   componentDidMount() {
       this.getAllCategories();
       this.getAllPosts();
@@ -76,7 +107,7 @@ class App extends Component {
     return (
       <div className="App">
 
-        <Route exact path='/' render={()=>(
+        <Route exact path='/' render={({ history })=>(
           <div>
             <h1>
               Readable
@@ -92,7 +123,19 @@ class App extends Component {
               ))}
             </ul>
             <CommentList
-              comments={posts}
+              comments = {posts}
+              postUpVote = {(post) => {
+                this.postUpVote(post)
+              }}
+              postDownVote = {(post) => {
+                this.postDownVote(post)
+              }}
+              postEdit = {(post) => {
+                this.postEdit(post)
+              }}
+              postDelete = {(post) => {
+                this.postDelete(post)
+              }}
             >
             </CommentList>
 
@@ -106,9 +149,9 @@ class App extends Component {
         <Route path='/editComment' render={({ history })=>(
           <EditComment
             onCreatePost={(post) => {
-            this.addPost(post)
-            history.push('/')
-          }}
+              this.addPost(post)
+              history.push('/')
+            }}
           />
         )}/>
 

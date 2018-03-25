@@ -34,3 +34,33 @@ export const createPost = ({ title, body, author, category }) =>
     })
    })
     .then(res => res.json())
+
+// 帖子 顶
+export const postUpVote = ({ id }) =>
+  fetch(`${api}/posts/${id}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      option: 'upVote',
+    })
+   })
+    .then(res => res.json())
+
+// 帖子 踩
+export const postDownVote = ({ id }) =>
+  fetch(`${api}/posts/${id}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      option: 'downVote',
+    })
+   })
+    .then(res => res.json())
+
+// 帖子 删除
+export const postDelete = ({ id }) =>
+  fetch(`${api}/posts/${id}`, {
+    method: 'DELETE',
+    headers,
+   })
+    .then(res => res.json())
