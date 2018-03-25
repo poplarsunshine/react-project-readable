@@ -64,3 +64,34 @@ export const postDelete = ({ id }) =>
     headers,
    })
     .then(res => res.json())
+
+/*
+评论
+*/
+
+// 所有评论 /posts/:id/comments
+export const getCommentsWithPost = (id) =>
+  fetch(`${api}/posts/${id}/comments`, { headers })
+    .then(res => res.json())
+
+// 评论 顶
+export const commentUpVote = ({ id }) =>
+  fetch(`${api}/comments/${id}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      option: 'upVote',
+    })
+   })
+    .then(res => res.json())
+
+// 评论 踩
+export const commentDownVote = ({ id }) =>
+  fetch(`${api}/comments/${id}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      option: 'downVote',
+    })
+   })
+    .then(res => res.json())

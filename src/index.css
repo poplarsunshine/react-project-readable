@@ -29,9 +29,9 @@ body {
   list-style-type: none;
 }
 
-.comment-grid {
+.post-grid {
   padding: 20px;
-  background: lightgray;
+  background: #DDD;
   display: flex = 1;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -91,4 +91,16 @@ body {
   width: 80%;
 }
 
-/* Comment Detail*/
+/* Post Detail*/
+
+.comment-grid {
+  padding: 20px;
+  background: #EEE;
+  display: flex = 1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.post-detail {
+  width: 80%;
+}

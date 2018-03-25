@@ -23,13 +23,15 @@ class CommentList extends Component {
       <div className="comments">
         <ol className='comment-list'>
           {comments.map((comment) => (
-            <li key={comment.id} className='comment-grid'>
-              <Post post={comment}
+            <li key={comment.id}>
+              <Post
+                post={comment}
                 postUpVote={(data) => {postUpVote(data)}}
                 postDownVote={(data) => {postDownVote(data)}}
                 postEdit={(data) => {postEdit(data)}}
                 postDelete={(data) => {postDelete(data)}}
                 postDetail={(data) => {postDetail(data)}}
+                showDetailBtn = {true}
                 >
               </Post>
             </li>

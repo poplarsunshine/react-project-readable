@@ -4,7 +4,6 @@ import { Link, Route } from 'react-router-dom'
 import CommentList from './CommentList.js'
 import PostDetail from './PostDetail.js'
 import EditComment from './EditComment.js'
-import API from './EditComment.js'
 import * as ReadableAPI from '../utils/api'
 
 class App extends Component {

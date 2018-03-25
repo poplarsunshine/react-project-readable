@@ -1,27 +1,26 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-class Post extends Component {
+class Comment extends Component {
 
   static propTypes = {
-    post : PropTypes.object.isRequired,
-    postUpVote : PropTypes.func.isRequired,
-    postDownVote : PropTypes.func.isRequired,
-    postEdit : PropTypes.func.isRequired,
-    postDelete : PropTypes.func.isRequired,
-    postDetail : PropTypes.func.isRequired,
+    comment : PropTypes.object.isRequired,
+    commentUpVote : PropTypes.func.isRequired,
+    commentDownVote : PropTypes.func.isRequired,
+    commentEdit : PropTypes.func.isRequired,
+    commentDelete : PropTypes.func.isRequired,
   }
 
   render() {
-    const { post, postUpVote, postDownVote, postEdit, postDelete, postDetail, showDetailBtn } = this.props
+    const { comment, commentUpVote, commentDownVote, commentEdit, commentDelete } = this.props
       return (
-          <div className='post-grid'>
+        <div className='comment-grid'>
           <div className="cotent-row">
             <div className="text-left">
                 Title:
             </div>
             <div className="text-right">
-                {post.title}
+                {comment.title}
             </div>
           </div>
           <div className="cotent-row">
@@ -29,7 +28,7 @@ class Post extends Component {
                 Body:
             </div>
             <div className="text-right">
-                {post.body}
+                {comment.body}
             </div>
           </div>
           <div className="cotent-row">
@@ -37,7 +36,7 @@ class Post extends Component {
                 Author:
             </div>
             <div className="text-right">
-                {post.author}
+                {comment.author}
             </div>
           </div>
           <div className="cotent-row">
@@ -45,7 +44,7 @@ class Post extends Component {
                 CommentCount:
             </div>
             <div className="text-right">
-                {post.commentCount}
+                {comment.commentCount}
             </div>
           </div>
           <div className="cotent-row">
@@ -53,7 +52,7 @@ class Post extends Component {
                 VoteScore:
             </div>
             <div className="text-right">
-                {post.voteScore}
+                {comment.voteScore}
             </div>
           </div>
           <div className="cotent-row">
@@ -61,18 +60,18 @@ class Post extends Component {
                 Time:
             </div>
             <div className="text-right">
-                {post.timestamp}
+                {comment.timestamp}
             </div>
           </div>
 
           <br/>
           <div className="cotent-row">
             <button class="ui primary button"
-              onClick={() => postUpVote(post)}>
+              onClick={() => commentUpVote(comment)}>
               Vote Up
             </button>
             <button class="ui button"
-              onClick={() => postDownVote(post)}>
+              onClick={() => commentDownVote(comment)}>
               Vote Down
             </button>
           </div>
@@ -80,23 +79,17 @@ class Post extends Component {
           <br/>
           <div className="cotent-row">
             <button class="ui primary button"
-              onClick={() => postEdit(post)}>
+              onClick={() => commentEdit(comment)}>
               Edit
             </button>
             <button class="ui button"
-              onClick={() => postDelete(post)}>
+              onClick={() => commentDelete(comment)}>
               Delete
             </button>
-            {showDetailBtn && (
-              <button class="ui button"
-                onClick={() => postDetail(post)}>
-                Detail
-              </button>
-            )}
           </div>
           </div>
        )
     }
 }
 
-export default Post
+export default Comment
