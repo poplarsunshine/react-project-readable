@@ -31,8 +31,10 @@ body {
 
 .comment-grid {
   padding: 20px;
-  background: white;
-  display: flex;
+  background: lightgray;
+  display: flex = 1;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .open-add {
@@ -73,6 +75,21 @@ body {
 
 .create-comment-details {
   margin-left: 20px;
+}
+
+.cotent-row {
+  display: flex;
+}
+
+.text-left {
+  text-align: left;
+  font-weight: 800;
+  width: 20%;
+}
+
+.text-right {
+  text-align: right;
+  width: 80%;
 }
 
 /* Comment Detail*/
