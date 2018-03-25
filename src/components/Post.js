@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 class Post extends Component {
@@ -10,15 +9,13 @@ class Post extends Component {
     postDownVote : PropTypes.func.isRequired,
     postEdit : PropTypes.func.isRequired,
     postDelete : PropTypes.func.isRequired,
+    postDetail : PropTypes.func.isRequired,
   }
 
   render() {
-    const { post, postUpVote, postDownVote, postEdit, postDelete } = this.props
+    const { post, postUpVote, postDownVote, postEdit, postDelete, postDetail } = this.props
       return (
           <div>
-          <Link
-            to='/commentDetail'
-          >
           <div className="cotent-row">
             <div className="text-left">
                 Title:
@@ -67,7 +64,7 @@ class Post extends Component {
                 {post.timestamp}
             </div>
           </div>
-          </Link>
+
           <br/>
           <div className="cotent-row">
             <button class="ui primary button"
@@ -79,6 +76,7 @@ class Post extends Component {
               Vote Down
             </button>
           </div>
+
           <br/>
           <div className="cotent-row">
             <button class="ui primary button"
@@ -88,6 +86,10 @@ class Post extends Component {
             <button class="ui button"
               onClick={() => postDelete(post)}>
               Delete
+            </button>
+            <button class="ui button"
+              onClick={() => postDetail(post)}>
+              Detail
             </button>
           </div>
           </div>

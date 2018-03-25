@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Link, Route } from 'react-router-dom'
 import CommentList from './CommentList.js'
-import CommentDetail from './CommentDetail.js'
+import PostDetail from './PostDetail.js'
 import EditComment from './EditComment.js'
 import API from './EditComment.js'
 import * as ReadableAPI from '../utils/api'
@@ -12,6 +12,7 @@ class App extends Component {
   state = {
     categories : [],
     posts : [],
+    curPost : {},
   }
 
   onSelectAllType = () => {
@@ -96,13 +97,17 @@ class App extends Component {
     )
   }
 
+  // postDetail = (post) => {
+  //   console.log('postDetail ID:', post.id);
+  // }
+
   componentDidMount() {
       this.getAllCategories();
       this.getAllPosts();
   }
 
   render() {
-    const { categories, posts } = this.state
+    const { categories, posts, post } = this.state
 
     return (
       <div className="App">
@@ -136,6 +141,13 @@ class App extends Component {
               postDelete = {(post) => {
                 this.postDelete(post)
               }}
+              postDetail = {(post) => {
+                console.log('postDetail ID:', post.id);
+                this.setState({
+                  curPost : post
+                })
+                history.push('/postDetail')
+              }}
             >
             </CommentList>
 
@@ -155,8 +167,8 @@ class App extends Component {
           />
         )}/>
 
-        <Route path='/commentDetail' render={({ curComment })=>(
-          <CommentDetail
+        <Route path='/postDetail' render={({ history })=>(
+          <PostDetail post = {this.state.curPost}
           />
         )}/>
       </div>

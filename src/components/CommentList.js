@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../App.css';
 import { Link, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Item, Statistic, Label, Form, Button, Grid, Icon } from 'semantic-ui-react'
 import Post from './Post.js'
+import '../App.css';
+import { Item, Statistic, Label, Form, Button, Grid, Icon } from 'semantic-ui-react'
 
 class CommentList extends Component {
 
@@ -13,10 +13,11 @@ class CommentList extends Component {
     postDownVote : PropTypes.func.isRequired,
     postEdit : PropTypes.func.isRequired,
     postDelete : PropTypes.func.isRequired,
+    postDetail : PropTypes.func.isRequired,
   }
 
   render() {
-    const { comments, postUpVote, postDownVote, postEdit, postDelete } = this.props
+    const { comments, postUpVote, postDownVote, postEdit, postDelete, postDetail } = this.props
 
     return (
       <div className="comments">
@@ -28,6 +29,7 @@ class CommentList extends Component {
                 postDownVote={(data) => {postDownVote(data)}}
                 postEdit={(data) => {postEdit(data)}}
                 postDelete={(data) => {postDelete(data)}}
+                postDetail={(data) => {postDetail(data)}}
                 >
               </Post>
             </li>
