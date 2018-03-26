@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Post from './Post.js'
 import Comment from './Comment.js'
@@ -58,10 +58,15 @@ class PostDetail extends Component {
       )
     }
 
-    commentEdit = (post) => {
+    commentEdit = (comment) => {
     }
 
-    commentDelete = (post) => {
+    commentDelete = (comment) => {
+      ReadableAPI.commentDelete(comment).then(
+        (result) => {
+          this.getComments(this.state.postID);
+        }
+      )
     }
 
     componentDidMount() {
@@ -90,9 +95,9 @@ class PostDetail extends Component {
               post = {post}>
             </Post>
 
-            <button>
-              Add Comment
-            </button>
+            <Link
+              to='/editComment'
+            >Add Comment</Link>
 
             <div className="comments">
               <ol className='comment-list'>

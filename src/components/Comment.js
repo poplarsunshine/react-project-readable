@@ -17,14 +17,6 @@ class Comment extends Component {
         <div className='comment-grid'>
           <div className="cotent-row">
             <div className="text-left">
-                Title:
-            </div>
-            <div className="text-right">
-                {comment.title}
-            </div>
-          </div>
-          <div className="cotent-row">
-            <div className="text-left">
                 Body:
             </div>
             <div className="text-right">
@@ -37,14 +29,6 @@ class Comment extends Component {
             </div>
             <div className="text-right">
                 {comment.author}
-            </div>
-          </div>
-          <div className="cotent-row">
-            <div className="text-left">
-                CommentCount:
-            </div>
-            <div className="text-right">
-                {comment.commentCount}
             </div>
           </div>
           <div className="cotent-row">

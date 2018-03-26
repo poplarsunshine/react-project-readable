@@ -95,3 +95,25 @@ export const commentDownVote = ({ id }) =>
     })
    })
     .then(res => res.json())
+
+// 添加评论
+export const createComment = ({ body, author }, { id }) =>
+  fetch(`${api}/comments`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      id: UUID.v4(),
+      timestamp: Date.now(),
+      parentId: id,
+      body, author
+    })
+   })
+    .then(res => res.json())
+
+// 删除评论
+export const commentDelete = ({ id }) =>
+  fetch(`${api}/comments/${id}`, {
+    method: 'DELETE',
+    headers,
+   })
+    .then(res => res.json())

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { Link, Route } from 'react-router-dom'
+import * as ReadableAPI from '../utils/api'
+
 import CommentList from './CommentList.js'
 import PostDetail from './PostDetail.js'
+import EditPost from './EditPost.js'
 import EditComment from './EditComment.js'
-import * as ReadableAPI from '../utils/api'
 
 class App extends Component {
 
@@ -100,6 +102,17 @@ class App extends Component {
   //   console.log('postDetail ID:', post.id);
   // }
 
+  // Comment
+  addComment = (comment, post) => {
+    console.log('comment body', comment.body);
+    console.log('post id', post.id);
+    ReadableAPI.createComment(comment, post).then(
+      (result) => {
+        console.log('createComment result:', result);
+      }
+    )
+  }
+
   componentDidMount() {
       this.getAllCategories();
       this.getAllPosts();
@@ -152,13 +165,13 @@ class App extends Component {
 
             <Link
               className="open-add"
-              to='/editComment'
+              to='/editPost'
             >comment</Link>
           </div>
         )}/>
 
-        <Route path='/editComment' render={({ history })=>(
-          <EditComment
+        <Route path='/editPost' render={({ history })=>(
+          <EditPost
             onCreatePost={(post) => {
               this.addPost(post)
               history.push('/')
@@ -168,6 +181,16 @@ class App extends Component {
 
         <Route path='/postDetail' render={({ history })=>(
           <PostDetail post = {this.state.curPost}
+          />
+        )}/>
+
+        <Route path='/editComment' render={({ history })=>(
+          <EditComment
+            onCreateComment={(comment) => {
+              console.log('this.state.curPost:', this.state.curPost);
+              this.addComment(comment, this.state.curPost)
+              history.push('/postDetail')
+            }}
           />
         )}/>
       </div>
