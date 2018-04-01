@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Link, Route } from 'react-router-dom'
 import * as ReadableAPI from '../utils/api'
+import sortBy from 'sort-by'
 
 import PostList from './PostList.js'
 import PostDetail from './PostDetail.js'
@@ -18,6 +19,7 @@ class App extends Component {
     posts : [],
     curPost : {},
     curComment : {},
+    sortType : 'timestamp',
   }
 
   onSelectAllType = () => {
@@ -27,6 +29,13 @@ class App extends Component {
   onSelectType = (path) => {
     console.log('onSelectType:', path);
     this.getPostsType(path);
+  }
+
+  postSortOrder = (sortType) => {
+    console.log('sortBy:', sortType);
+    this.setState({
+      sortType : sortType
+    })
   }
 
   addPost = (post) => {
@@ -139,7 +148,8 @@ class App extends Component {
   }
 
   render() {
-    const { categories, posts, post } = this.state
+    const { categories, posts, post, sortType } = this.state
+    posts.sort(sortBy(sortType))
 
     return (
       <div className="App">
@@ -159,6 +169,13 @@ class App extends Component {
                 </li>
               ))}
             </ul>
+            <div>
+              <label>Sort By:</label>
+              <select onChange={event => this.postSortOrder(event.target.value)}>
+                <option value='timestamp'>Date</option>
+                <option value='voteScore'>Votes</option>
+              </select>
+            </div>
             <PostList
               comments = {posts}
               postUpVote = {(post) => {

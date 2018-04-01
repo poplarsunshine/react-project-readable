@@ -44,7 +44,7 @@ class Comment extends Component {
                 Time:
             </div>
             <div className="text-right">
-                {comment.timestamp}
+                {new Date(comment.timestamp).toLocaleString()}
             </div>
           </div>
 

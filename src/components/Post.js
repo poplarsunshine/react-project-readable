@@ -61,7 +61,7 @@ class Post extends Component {
                 Time:
             </div>
             <div className="text-right">
-                {post.timestamp}
+                {new Date(post.timestamp).toLocaleString()}
             </div>
           </div>
 
