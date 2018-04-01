@@ -9,6 +9,11 @@ class PostDetail extends Component {
 
     static propTypes = {
       post : PropTypes.object.isRequired,
+      postUpVote : PropTypes.func.isRequired,
+      postDownVote : PropTypes.func.isRequired,
+      postEdit : PropTypes.func.isRequired,
+      postDelete : PropTypes.func.isRequired,
+
       commentUpdate : PropTypes.func.isRequired,
     }
 
@@ -85,8 +90,7 @@ class PostDetail extends Component {
     }
 
     render() {
-        // const { post, comments, commentUpVote, commentDownVote, commentEdit, commentDelete } = this.props;
-        const { post } = this.props;
+        const { post, postUpVote, postDownVote, postEdit, postDelete } = this.props;
         const { comments } = this.state;
 
         return (
@@ -96,7 +100,12 @@ class PostDetail extends Component {
             </h1>
             <Link className='close-create-comment' to='/'>Close</Link>
             <Post className='post-detail'
-              post = {post}>
+              post = {post}
+              postUpVote={(data) => {postUpVote(data)}}
+              postDownVote={(data) => {postDownVote(data)}}
+              postEdit={(data) => {postEdit(data)}}
+              postDelete={(data) => {postDelete(data)}}
+            >
             </Post>
 
             <Link

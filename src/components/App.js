@@ -125,7 +125,7 @@ class App extends Component {
 
   updateComment = (data, comment) => {
     console.log('update body', data.body);
-    console.log('commnet id', comment.id);
+    console.log('comment id', comment.id);
     ReadableAPI.commentUpdate(data, comment).then(
       (result) => {
         console.log('updateComment result:', result);
@@ -216,6 +216,22 @@ class App extends Component {
         <Route path='/postDetail' render={({ history })=>(
           <PostDetail
             post = {this.state.curPost}
+            postUpVote = {(post) => {
+              this.postUpVote(post)
+            }}
+            postDownVote = {(post) => {
+              this.postDownVote(post)
+            }}
+            postEdit = {(post) => {
+              console.log('postEdit ID:', post.id);
+              this.setState({
+                curPost : post
+              })
+              history.push('/editPost')
+            }}
+            postDelete = {(post) => {
+              this.postDelete(post)
+            }}
             commentUpdate={(comment) => {
               this.setState({
                 curComment : comment
