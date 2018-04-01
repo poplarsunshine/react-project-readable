@@ -17,6 +17,7 @@ class App extends Component {
     categories : [],
     posts : [],
     curPost : {},
+    curComment : {},
   }
 
   onSelectAllType = () => {
@@ -122,6 +123,16 @@ class App extends Component {
     )
   }
 
+  updateComment = (data, comment) => {
+    console.log('update body', data.body);
+    console.log('commnet id', comment.id);
+    ReadableAPI.commentUpdate(data, comment).then(
+      (result) => {
+        console.log('updateComment result:', result);
+      }
+    )
+  }
+
   componentDidMount() {
       this.getAllCategories();
       this.getAllPosts();
@@ -203,7 +214,14 @@ class App extends Component {
         )}/>
 
         <Route path='/postDetail' render={({ history })=>(
-          <PostDetail post = {this.state.curPost}
+          <PostDetail
+            post = {this.state.curPost}
+            commentUpdate={(comment) => {
+              this.setState({
+                curComment : comment
+              })
+              history.push('/editComment')
+            }}
           />
         )}/>
 
@@ -212,6 +230,17 @@ class App extends Component {
             onCreateComment={(comment) => {
               console.log('this.state.curPost:', this.state.curPost);
               this.addComment(comment, this.state.curPost)
+              history.push('/postDetail')
+            }}
+          />
+        )}/>
+
+        <Route path='/editComment' render={({ history })=>(
+          <EditComment
+            comment = {this.state.curComment}
+            onUpdateComment={(data, comment) => {
+              console.log('comment:', comment.id);
+              this.updateComment(data, comment)
               history.push('/postDetail')
             }}
           />

@@ -9,6 +9,7 @@ class PostDetail extends Component {
 
     static propTypes = {
       post : PropTypes.object.isRequired,
+      commentUpdate : PropTypes.func.isRequired,
     }
 
     handleSubmit = (e) => {
@@ -58,7 +59,10 @@ class PostDetail extends Component {
       )
     }
 
-    commentEdit = (comment) => {
+    commentEdit = (data) => {
+      console.log('commentEdit body:', data.body);
+      const { commentUpdate } = this.props;
+      commentUpdate(data);
     }
 
     commentDelete = (comment) => {
