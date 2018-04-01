@@ -88,8 +88,14 @@ class App extends Component {
     )
   }
 
-  postEdit = (post) => {
+  postEdit = (data, post) => {
     console.log('postEdit ID:', post.id);
+    ReadableAPI.postUpdate(data, post).then(
+      (result) => {
+        console.log('result:', result);
+        this.getAllPosts();
+      }
+    )
   }
 
   postDelete = (post) => {
@@ -151,7 +157,11 @@ class App extends Component {
                 this.postDownVote(post)
               }}
               postEdit = {(post) => {
-                this.postEdit(post)
+                console.log('postEdit ID:', post.id);
+                this.setState({
+                  curPost : post
+                })
+                history.push('/editPost')
               }}
               postDelete = {(post) => {
                 this.postDelete(post)
@@ -177,6 +187,16 @@ class App extends Component {
           <AddPost
             onCreatePost={(post) => {
               this.addPost(post)
+              history.push('/')
+            }}
+          />
+        )}/>
+
+        <Route path='/editPost' render={({ history })=>(
+          <EditPost
+            post = {this.state.curPost}
+            onUpdatePost={(data, post) => {
+              this.postEdit(data, post)
               history.push('/')
             }}
           />

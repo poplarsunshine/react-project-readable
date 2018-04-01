@@ -65,6 +65,18 @@ export const postDelete = ({ id }) =>
    })
     .then(res => res.json())
 
+// 帖子 编辑
+export const postUpdate = ({ title, body }, { id }) =>
+  fetch(`${api}/posts/${id}`, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify({
+      title,
+      body
+    })
+   })
+    .then(res => res.json())
+
 /*
 评论
 */
@@ -115,5 +127,17 @@ export const commentDelete = ({ id }) =>
   fetch(`${api}/comments/${id}`, {
     method: 'DELETE',
     headers,
+   })
+    .then(res => res.json())
+
+// 编辑评论
+export const commentUpdate = ({ body }, { id }) =>
+  fetch(`${api}/comments/${id}`, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify({
+      timestamp: Date.now(),
+      body
+    })
    })
     .then(res => res.json())
