@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import serializeForm from 'form-serialize'
 
-class EditPost extends Component {
+class AddPost extends Component {
 
     handleSubmit = (e) => {
       e.preventDefault()
@@ -16,7 +16,7 @@ class EditPost extends Component {
         return (
           <div>
           <h1>
-            Edit Post
+            Add Post
           </h1>
             <Link className='close-create-comment' to='/'>Close</Link>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
@@ -33,4 +33,4 @@ class EditPost extends Component {
     }
 }
 
-export default EditPost
+export default AddPost

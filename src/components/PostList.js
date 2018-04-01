@@ -5,7 +5,7 @@ import Post from './Post.js'
 import '../App.css';
 import { Item, Statistic, Label, Form, Button, Grid, Icon } from 'semantic-ui-react'
 
-class CommentList extends Component {
+class PostList extends Component {
 
   static propTypes = {
     comments : PropTypes.array.isRequired,
@@ -42,4 +42,4 @@ class CommentList extends Component {
   }
 }
 
-export default CommentList;
+export default PostList;

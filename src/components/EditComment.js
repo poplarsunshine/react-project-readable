@@ -15,6 +15,9 @@ class EditComment extends Component {
     render() {
         return (
           <div>
+          <h1>
+            Add Comment
+          </h1>
             <Link className='close-create-comment' to='/postDetail'>Close</Link>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>

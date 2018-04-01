@@ -96,7 +96,7 @@ class PostDetail extends Component {
             </Post>
 
             <Link
-              to='/editComment'
+              to='/addComment'
             >Add Comment</Link>
 
             <div className="comments">

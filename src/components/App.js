@@ -3,10 +3,13 @@ import '../App.css';
 import { Link, Route } from 'react-router-dom'
 import * as ReadableAPI from '../utils/api'
 
-import CommentList from './CommentList.js'
+import PostList from './PostList.js'
 import PostDetail from './PostDetail.js'
 import EditPost from './EditPost.js'
+import AddPost from './AddPost.js'
 import EditComment from './EditComment.js'
+import AddComment from './AddComment.js'
+
 
 class App extends Component {
 
@@ -139,7 +142,7 @@ class App extends Component {
                 </li>
               ))}
             </ul>
-            <CommentList
+            <PostList
               comments = {posts}
               postUpVote = {(post) => {
                 this.postUpVote(post)
@@ -161,17 +164,17 @@ class App extends Component {
                 history.push('/postDetail')
               }}
             >
-            </CommentList>
+            </PostList>
 
             <Link
               className="open-add"
-              to='/editPost'
+              to='/addPost'
             >comment</Link>
           </div>
         )}/>
 
-        <Route path='/editPost' render={({ history })=>(
-          <EditPost
+        <Route path='/addPost' render={({ history })=>(
+          <AddPost
             onCreatePost={(post) => {
               this.addPost(post)
               history.push('/')
@@ -184,8 +187,8 @@ class App extends Component {
           />
         )}/>
 
-        <Route path='/editComment' render={({ history })=>(
-          <EditComment
+        <Route path='/addComment' render={({ history })=>(
+          <AddComment
             onCreateComment={(comment) => {
               console.log('this.state.curPost:', this.state.curPost);
               this.addComment(comment, this.state.curPost)
