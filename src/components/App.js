@@ -169,6 +169,7 @@ class App extends Component {
                 </li>
               ))}
             </ul>
+            <br/>
             <div>
               <label>Sort By:</label>
               <select onChange={event => this.postSortOrder(event.target.value)}>
@@ -213,6 +214,7 @@ class App extends Component {
 
         <Route path='/addPost' render={({ history })=>(
           <AddPost
+            categories = {this.state.categories}
             onCreatePost={(post) => {
               this.addPost(post)
               history.push('/')
