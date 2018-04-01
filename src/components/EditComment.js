@@ -23,6 +23,7 @@ class EditComment extends Component {
             <Link className='close-create-comment' to='/postDetail'>Close</Link>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>
+                body
                 <input type='text' name='body' placeholder='Body' defaultValue={comment.body}></input>
                 <button>Submit</button>
               </div>

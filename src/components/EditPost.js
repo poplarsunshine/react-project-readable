@@ -25,7 +25,9 @@ class EditPost extends Component {
             <Link className='close-create-comment' to='/'>Close</Link>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>
+                title:
                 <input type='text' name='title' placeholder='Title' defaultValue={post.title}></input>
+                body:
                 <input type='text' name='body' placeholder='Body' defaultValue={post.body}></input>
                 <button>Submit</button>
               </div>
