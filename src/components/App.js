@@ -24,6 +24,9 @@ class App extends Component {
   }
 
   onSelectAllType = () => {
+    this.setState({
+      curCategory : ''
+    })
     this.getAllPosts();
   }
 
@@ -158,19 +161,28 @@ class App extends Component {
     return (
       <div className="App">
 
-        <Route exact path='/' render={({ history })=>(
+        <Route exact path='/:category' render={({ history })=>(
           <div>
             <h1>
               Readable
             </h1>
             <ul className='readable-types'>
+              <Link
+                to='/'
+              >
               <li key={'AllPosts'} onClick={() => this.onSelectAllType()} className='subheader'>
                 {'AllPosts'}
               </li>
+              </Link>
+
               {categories.map((cate) => (
+                <Link
+                  to={cate.name}
+                >
                 <li key={cate.name} onClick={() => this.onSelectType(cate.path)} className='subheader'>
                   {cate.name}
                 </li>
+                </Link>
               ))}
             </ul>
             <br/>
@@ -194,7 +206,7 @@ class App extends Component {
                 this.setState({
                   curPost : post
                 })
-                history.push('/editPost')
+                history.push('/editPost');
               }}
               postDelete = {(post) => {
                 this.postDelete(post)
@@ -250,7 +262,7 @@ class App extends Component {
               this.setState({
                 curPost : post
               })
-              history.push('/editPost')
+              history.push('/editPost');
             }}
             postDelete = {(post) => {
               this.postDelete(post)
