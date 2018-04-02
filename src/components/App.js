@@ -17,6 +17,7 @@ class App extends Component {
   state = {
     categories : [],
     posts : [],
+    curCategory : '',
     curPost : {},
     curComment : {},
     sortType : 'timestamp',
@@ -28,6 +29,9 @@ class App extends Component {
 
   onSelectType = (path) => {
     console.log('onSelectType:', path);
+    this.setState({
+      curCategory : path
+    })
     this.getPostsType(path);
   }
 
@@ -200,7 +204,8 @@ class App extends Component {
                 this.setState({
                   curPost : post
                 })
-                history.push('/postDetail')
+                // history.push('/postDetail')
+                history.push("/" + post.category + "/" + post.id);
               }}
             >
             </PostList>
@@ -232,7 +237,7 @@ class App extends Component {
           />
         )}/>
 
-        <Route path='/postDetail' render={({ history })=>(
+        <Route path='/:category/:id' render={({ history })=>(
           <PostDetail
             post = {this.state.curPost}
             postUpVote = {(post) => {

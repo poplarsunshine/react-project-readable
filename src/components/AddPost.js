@@ -42,7 +42,9 @@ class AddPost extends Component {
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>
               <div>
+                Select Category:
                 <select onChange={event => this.setCategorie(event.target.value)}>
+                  <option value="none" selected>None</option>
                   {categories.map((categorie) => (
                     <option value={categorie.name}>{categorie.name}</option>
                   ))}
