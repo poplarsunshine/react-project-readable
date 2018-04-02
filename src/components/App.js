@@ -204,7 +204,6 @@ class App extends Component {
                 this.setState({
                   curPost : post
                 })
-                // history.push('/postDetail')
                 history.push("/" + post.category + "/" + post.id);
               }}
             >
@@ -268,9 +267,14 @@ class App extends Component {
         <Route path='/addComment' render={({ history })=>(
           <AddComment
             onCreateComment={(comment) => {
-              console.log('this.state.curPost:', this.state.curPost);
-              this.addComment(comment, this.state.curPost)
-              history.push('/postDetail')
+              const post = this.state.curPost;
+              this.addComment(comment, post)
+              history.push("/" + post.category + "/" + post.id);
+            }}
+            onCreateCommentCancel = {() => {
+              // history.goback();
+              const post = this.state.curPost;
+              history.push("/" + post.category + "/" + post.id);
             }}
           />
         )}/>
@@ -280,8 +284,13 @@ class App extends Component {
             comment = {this.state.curComment}
             onUpdateComment={(data, comment) => {
               console.log('comment:', comment.id);
+              const post = this.state.curPost;
               this.updateComment(data, comment)
-              history.push('/postDetail')
+              history.push("/" + post.category + "/" + post.id);
+            }}
+            onUpdateCommentCancel = {() => {
+              const post = this.state.curPost;
+              history.push("/" + post.category + "/" + post.id);
             }}
           />
         )}/>

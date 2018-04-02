@@ -12,7 +12,7 @@ class EditComment extends Component {
     }
 
     render() {
-      const { comment, onUpdateComment } = this.props
+      const { comment, onUpdateComment, onUpdateCommentCancel } = this.props
       console.log('EditComment body:', comment.body);
 
         return (
@@ -20,7 +20,7 @@ class EditComment extends Component {
           <h1>
             Edit Comment
           </h1>
-            <Link className='close-create-comment' to='/postDetail'>Close</Link>
+          <h1 className='close-create-comment' onClick={() => onUpdateCommentCancel()}>Close</h1>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>
                 body:

@@ -13,12 +13,13 @@ class AddComment extends Component {
     }
 
     render() {
+      const { onCreateCommentCancel } = this.props
         return (
           <div>
           <h1>
             Add Comment
           </h1>
-            <Link className='close-create-comment' to='/postDetail'>Close</Link>
+            <h1 className='close-create-comment' onClick={() => onCreateCommentCancel()}>Close</h1>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>
                 <input type='text' name='body' placeholder='Body'></input>
