@@ -4,7 +4,8 @@ import { Link, Route } from 'react-router-dom'
 import * as ReadableAPI from '../utils/api'
 import sortBy from 'sort-by'
 
-import PostList from './PostList.js'
+
+import Main from './Main.js'
 import PostDetail from './PostDetail.js'
 import EditPost from './EditPost.js'
 import AddPost from './AddPost.js'
@@ -161,71 +162,87 @@ class App extends Component {
     return (
       <div className="App">
 
-        <Route exact path='/:category' render={({ history })=>(
-          <div>
-            <h1>
-              Readable
-            </h1>
-            <ul className='readable-types'>
-              <Link
-                to='/'
-              >
-              <li key={'AllPosts'} onClick={() => this.onSelectAllType()} className='subheader'>
-                {'AllPosts'}
-              </li>
-              </Link>
+        <Route exact path='/' render={({ history })=>(
+          <Main
 
-              {categories.map((cate) => (
-                <Link
-                  to={cate.name}
-                >
-                <li key={cate.name} onClick={() => this.onSelectType(cate.path)} className='subheader'>
-                  {cate.name}
-                </li>
-                </Link>
-              ))}
-            </ul>
-            <br/>
-            <div>
-              <label>Sort By:</label>
-              <select onChange={event => this.postSortOrder(event.target.value)}>
-                <option value='timestamp'>Date</option>
-                <option value='voteScore'>Votes</option>
-              </select>
-            </div>
-            <PostList
-              posts = {posts}
-              postUpVote = {(post) => {
-                this.postUpVote(post)
-              }}
-              postDownVote = {(post) => {
-                this.postDownVote(post)
-              }}
-              postEdit = {(post) => {
-                console.log('postEdit ID:', post.id);
-                this.setState({
-                  curPost : post
-                })
-                history.push('/editPost');
-              }}
-              postDelete = {(post) => {
-                this.postDelete(post)
-              }}
-              postDetail = {(post) => {
-                console.log('postDetail ID:', post.id);
-                this.setState({
-                  curPost : post
-                })
-                history.push("/" + post.category + "/" + post.id);
-              }}
-            >
-            </PostList>
+          onSelectAllType = {() => {
+            this.onSelectAllType()
+          }}
+          onSelectType = {(type) => {
+            this.onSelectType(type)
+          }}
+          postSortOrder = {(order) => {
+            this.postSortOrder(order)
+          }}
 
-            <Link
-              className="open-add"
-              to='/addPost'
-            >comment</Link>
-          </div>
+          categories = {categories}
+          sortType = {sortType}
+          posts = {posts}
+          postUpVote = {(post) => {
+            this.postUpVote(post)
+          }}
+          postDownVote = {(post) => {
+            this.postDownVote(post)
+          }}
+          postEdit = {(post) => {
+            console.log('postEdit ID:', post.id);
+            this.setState({
+              curPost : post
+            })
+            history.push('/editPost');
+          }}
+          postDelete = {(post) => {
+            this.postDelete(post)
+          }}
+          postDetail = {(post) => {
+            console.log('postDetail ID:', post.id);
+            this.setState({
+              curPost : post
+            })
+            history.push("/" + post.category + "/" + post.id);
+          }}
+          />
+        )}/>
+
+        <Route path='/:category' render={({ history })=>(
+          <Main
+          onSelectAllType = {() => {
+            this.onSelectAllType()
+          }}
+          onSelectType = {(type) => {
+            this.onSelectType(type)
+          }}
+          postSortOrder = {(order) => {
+            this.postSortOrder(order)
+          }}
+
+          categories = {categories}
+          sortType = {sortType}
+          posts = {posts}
+          postUpVote = {(post) => {
+            this.postUpVote(post)
+          }}
+          postDownVote = {(post) => {
+            this.postDownVote(post)
+          }}
+          postEdit = {(post) => {
+            console.log('postEdit ID:', post.id);
+            this.setState({
+              curPost : post
+            })
+            history.push('/editPost');
+          }}
+          postDelete = {(post) => {
+            this.postDelete(post)
+          }}
+          postDetail = {(post) => {
+            console.log('postDetail ID:', post.id);
+            this.setState({
+              curPost : post
+            })
+            history.push("/" + post.category + "/" + post.id);
+          }}
+          />
         )}/>
 
         <Route path='/addPost' render={({ history })=>(
