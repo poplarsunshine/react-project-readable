@@ -194,7 +194,7 @@ class App extends Component {
               </select>
             </div>
             <PostList
-              comments = {posts}
+              posts = {posts}
               postUpVote = {(post) => {
                 this.postUpVote(post)
               }}

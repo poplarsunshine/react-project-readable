@@ -8,7 +8,7 @@ import { Item, Statistic, Label, Form, Button, Grid, Icon } from 'semantic-ui-re
 class PostList extends Component {
 
   static propTypes = {
-    comments : PropTypes.array.isRequired,
+    posts : PropTypes.array.isRequired,
     postUpVote : PropTypes.func.isRequired,
     postDownVote : PropTypes.func.isRequired,
     postEdit : PropTypes.func.isRequired,
@@ -17,15 +17,15 @@ class PostList extends Component {
   }
 
   render() {
-    const { comments, postUpVote, postDownVote, postEdit, postDelete, postDetail } = this.props
+    const { posts, postUpVote, postDownVote, postEdit, postDelete, postDetail } = this.props
 
     return (
       <div className="comments">
         <ol className='comment-list'>
-          {comments.map((comment) => (
-            <li key={comment.id}>
+          {posts.map((post) => (
+            <li key={post.id}>
               <Post
-                post={comment}
+                post={post}
                 postUpVote={(data) => {postUpVote(data)}}
                 postDownVote={(data) => {postDownVote(data)}}
                 postEdit={(data) => {postEdit(data)}}
