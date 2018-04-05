@@ -22,10 +22,6 @@ class App extends Component {
     sortType : 'timestamp',
   }
 
-  onSelectAllType = () => {
-    this.getAllPosts();
-  }
-
   postSortOrder = (sortType) => {
     console.log('sortBy:', sortType);
     this.setState({
@@ -59,8 +55,7 @@ class App extends Component {
   postUpVote = (post) => {
     ReadableAPI.postUpVote(post).then(
       (result) => {
-        console.log('result:', result);
-        this.getAllPosts();
+        this.props.fetchPosts();
       }
     )
   }
@@ -68,8 +63,7 @@ class App extends Component {
   postDownVote = (post) => {
     ReadableAPI.postDownVote(post).then(
       (result) => {
-        console.log('result:', result);
-        this.getAllPosts();
+        this.props.fetchPosts();
       }
     )
   }
@@ -78,8 +72,7 @@ class App extends Component {
     console.log('postEdit ID:', post.id);
     ReadableAPI.postUpdate(data, post).then(
       (result) => {
-        console.log('result:', result);
-        this.getAllPosts();
+        this.props.fetchPosts();
       }
     )
   }
@@ -87,8 +80,7 @@ class App extends Component {
   postDelete = (post) => {
     ReadableAPI.postDelete(post).then(
       (result) => {
-        console.log('result:', result);
-        this.getAllPosts();
+        this.props.fetchPosts();
       }
     )
   }
