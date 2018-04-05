@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Link, Route } from 'react-router-dom'
 import * as ReadableAPI from '../utils/api'
-import { fetchCategories } from '../actions'
+import { fetchCategories, fetchPosts } from '../actions'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 
@@ -18,7 +18,7 @@ class App extends Component {
 
   state = {
     // categories : [],
-    posts : [],
+    // posts : [],
     curCategory : 'all',
     curPost : {},
     curComment : {},
@@ -62,14 +62,14 @@ class App extends Component {
   //   )
   // }
 
-  getAllPosts = () => {
-    ReadableAPI.getAllPosts().then(
-      (posts) => {
-        console.log('posts:', posts);
-        this.setState({posts})
-      }
-    )
-  }
+  // getAllPosts = () => {
+  //   ReadableAPI.getAllPosts().then(
+  //     (posts) => {
+  //       console.log('posts:', posts);
+  //       this.setState({posts})
+  //     }
+  //   )
+  // }
 
   getPostsType = (path) => {
     ReadableAPI.getPostsType(path).then(
@@ -153,18 +153,19 @@ class App extends Component {
 
   componentDidMount() {
       // this.getAllCategories();
-      this.getAllPosts();
+      //this.getAllPosts();
 
       this.props.fetchCategories();
+      this.props.fetchPosts();
   }
 
   render() {
-    const { posts, post, sortType } = this.state
-    const { categories } = this.props
+    const { post, sortType } = this.state
+    const { posts, categories } = this.props
 
-    console.log('render props categories:', categories);
+    console.log('render props posts:', posts);
 
-    posts.sort(sortBy(sortType))
+    posts && posts.map && posts.sort(sortBy(sortType))
 
     return (
       <div className="App">
@@ -336,15 +337,17 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({ categories }) {
+function mapStateToProps ({ categories, posts }) {
     return {
-        categories
+        categories,
+        posts,
     }
 }
 
 function mapDispatchToProps (dispatch) {
     return {
-        fetchCategories: (categories) => dispatch(fetchCategories(categories))
+        fetchCategories: (data) => dispatch(fetchCategories(data)),
+        fetchPosts: (data) => dispatch(fetchPosts(data)),
     }
 }
 

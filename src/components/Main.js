@@ -78,7 +78,7 @@ class Main extends Component {
 
         <div className="comments">
           <ol className='comment-list'>
-            {posts.map((post) => (
+            {posts && posts.map && posts.map((post) => (
               <li key={post.id}>
                 <Post
                   post={post}
