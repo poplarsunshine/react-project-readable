@@ -18,7 +18,7 @@ class App extends Component {
   state = {
     categories : [],
     posts : [],
-    curCategory : '',
+    curCategory : 'all',
     curPost : {},
     curComment : {},
     sortType : 'timestamp',
@@ -26,7 +26,7 @@ class App extends Component {
 
   onSelectAllType = () => {
     this.setState({
-      curCategory : ''
+      curCategory : 'all'
     })
     this.getAllPosts();
   }
@@ -189,7 +189,7 @@ class App extends Component {
             this.setState({
               curPost : post
             })
-            history.push('/editPost');
+            history.push("/" + post.category + "/" + post.id + '/editPost');
           }}
           postDelete = {(post) => {
             this.postDelete(post)
@@ -204,7 +204,7 @@ class App extends Component {
           />
         )}/>
 
-        <Route path='/:category' render={({ history })=>(
+        <Route exact path='/:category' render={({ history })=>(
           <Main
           onSelectAllType = {() => {
             this.onSelectAllType()
@@ -219,6 +219,7 @@ class App extends Component {
           categories = {categories}
           sortType = {sortType}
           posts = {posts}
+
           postUpVote = {(post) => {
             this.postUpVote(post)
           }}
@@ -230,7 +231,7 @@ class App extends Component {
             this.setState({
               curPost : post
             })
-            history.push('/editPost');
+            history.push("/" + post.category + "/" + post.id + '/editPost');
           }}
           postDelete = {(post) => {
             this.postDelete(post)
@@ -245,7 +246,7 @@ class App extends Component {
           />
         )}/>
 
-        <Route path='/addPost' render={({ history })=>(
+        <Route exact path='/readable/post/add' render={({ history })=>(
           <AddPost
             categories = {this.state.categories}
             onCreatePost={(post) => {
@@ -255,7 +256,7 @@ class App extends Component {
           />
         )}/>
 
-        <Route path='/editPost' render={({ history })=>(
+        <Route exact path='/:category/:id/editPost' render={({ history })=>(
           <EditPost
             post = {this.state.curPost}
             onUpdatePost={(data, post) => {
@@ -265,7 +266,7 @@ class App extends Component {
           />
         )}/>
 
-        <Route path='/:category/:id' render={({ history })=>(
+        <Route exact path='/:category/:id' render={({ history })=>(
           <PostDetail
             post = {this.state.curPost}
             postUpVote = {(post) => {
@@ -279,7 +280,7 @@ class App extends Component {
               this.setState({
                 curPost : post
               })
-              history.push('/editPost');
+              history.push("/" + post.category + "/" + post.id + '/editPost');
             }}
             postDelete = {(post) => {
               this.postDelete(post)
@@ -288,12 +289,12 @@ class App extends Component {
               this.setState({
                 curComment : comment
               })
-              history.push('/editComment')
+              history.push("/" + comment.parentId + "/" + comment.id + '/editComment');
             }}
           />
         )}/>
 
-        <Route path='/addComment' render={({ history })=>(
+        <Route exact path='/:category/:id/addComment' render={({ history })=>(
           <AddComment
             onCreateComment={(comment) => {
               const post = this.state.curPost;
@@ -308,7 +309,7 @@ class App extends Component {
           />
         )}/>
 
-        <Route path='/editComment' render={({ history })=>(
+        <Route exact path='/:parentId/:id/editComment' render={({ history })=>(
           <EditComment
             comment = {this.state.curComment}
             onUpdateComment={(data, comment) => {

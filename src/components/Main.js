@@ -29,7 +29,8 @@ class Main extends Component {
   }
 
   render() {
-    const { categories, sortType, posts, postUpVote, postDownVote, postEdit, postDelete, postDetail,
+    const { categories, sortType, posts,
+            onCreatePost, postUpVote, postDownVote, postEdit, postDelete, postDetail,
             onSelectAllType,
             onSelectType,
             postSortOrder } = this.props
@@ -40,6 +41,12 @@ class Main extends Component {
         <h1>
           Readable
         </h1>
+
+        <Link
+          to = '/readable/post/add'
+          className='open-add'
+        >Add Post</Link>
+
         <ul className='readable-types'>
           <Link
             to='/'

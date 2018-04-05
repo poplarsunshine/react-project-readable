@@ -109,7 +109,9 @@ class PostDetail extends Component {
             </Post>
 
             <Link
-              to='/addComment'
+              to = {{
+                pathname: `/${post.category}/${post.id}/addComment`
+              }}
             >Add Comment</Link>
 
             <div className="comments">
