@@ -3,6 +3,7 @@ import * as ReadableAPI from '../utils/api'
 import {
     SET_CATEGORIES,
     SET_POSTS,
+    SET_SORT_TYPE,
 } from './types';
 
 /*
@@ -62,5 +63,12 @@ function setPosts (data) {
   return {
     type : SET_POSTS,
     posts : data
+  }
+}
+
+export function setSortType (type) {
+  return {
+    type : SET_SORT_TYPE,
+    sortType : type
   }
 }

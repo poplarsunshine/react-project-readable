@@ -6,7 +6,7 @@ import '../App.css';
 import { Item, Statistic, Label, Form, Button, Grid, Icon } from 'semantic-ui-react'
 import sortBy from 'sort-by'
 
-import { fetchCategories, fetchPosts, fetchPostsWithType } from '../actions'
+import { fetchCategories, fetchPosts, fetchPostsWithType, setSortType } from '../actions'
 import { connect } from 'react-redux'
 
 class Main extends Component {
@@ -14,14 +14,6 @@ class Main extends Component {
   state = {
     // curPost : {},
     // curComment : {},
-    sortType : 'timestamp',
-  }
-
-  setPostSortOrder = (sortType) => {
-    console.log('sortBy:', sortType);
-    this.setState({
-      sortType : sortType
-    })
   }
 
   static propTypes = {
@@ -40,9 +32,7 @@ class Main extends Component {
   }
 
   render() {
-    const { sortType } = this.state
-
-    const { categories, posts,
+    const { categories, posts, sortType,
             onCreatePost, postUpVote, postDownVote, postEdit, postDelete, postDetail,
             onSelectAllType,
             onSelectType,
@@ -86,7 +76,7 @@ class Main extends Component {
         <br/>
         <div>
           <label>Sort By:</label>
-          <select onChange={event => this.setPostSortOrder(event.target.value)}>
+          <select onChange={event => this.props.setSortType(event.target.value)}>
             <option value='timestamp'>Date</option>
             <option value='voteScore'>Votes</option>
           </select>
@@ -115,10 +105,11 @@ class Main extends Component {
   }
 }
 
-function mapStateToProps ({ categories, posts }) {
+function mapStateToProps ({ categories, posts, sortType }) {
     return {
         categories,
         posts,
+        sortType
     }
 }
 
@@ -127,6 +118,7 @@ function mapDispatchToProps (dispatch) {
         fetchCategories: (data) => dispatch(fetchCategories(data)),
         fetchPosts: (data) => dispatch(fetchPosts(data)),
         fetchPostsWithType: (data) => dispatch(fetchPostsWithType(data)),
+        setSortType: (data) => dispatch(setSortType(data)),
     }
 }
 
