@@ -7,6 +7,9 @@ import {
   UPDATE_POST,
   DELETE_POST,
   SET_POST_COMMENTS,
+  ADD_POST_COMMENT,
+  UPDATE_POST_COMMENT,
+  DELETE_POST_COMMENT,
 } from '../actions/types'
 
 function categories (state = {}, action) {
@@ -64,6 +67,11 @@ function comments (state = {}, action) {
       return {
         ...state,
         [action.postId]: action.comments.filter(comment => comment.deleted === false)
+      }
+    case ADD_POST_COMMENT:
+      return {
+        ...state,
+        [action.comment.parentId]: state[action.comment.parentId].concat([action.comment])
       }
     default:
       return state;

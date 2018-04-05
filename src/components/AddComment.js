@@ -2,14 +2,18 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import serializeForm from 'form-serialize'
 
+import { addPostComment } from '../actions'
+import { connect } from 'react-redux'
+
 class AddComment extends Component {
 
     handleSubmit = (e) => {
       e.preventDefault()
       const values = serializeForm(e.target, {hash: true})
-      console.log('handleSubmit:', values);
-      if (this.props.onCreateComment)
-        this.props.onCreateComment(values)
+      values.id = this.props.match.params.id
+      this.props.addPostComment(values, () => {
+        this.props.history.goBack();
+      });
     }
 
     render() {
@@ -19,7 +23,7 @@ class AddComment extends Component {
           <h1>
             Add Comment
           </h1>
-            <h1 className='close-create-comment' onClick={() => onCreateCommentCancel()}>Close</h1>
+            <h1 className='close-create-comment' onClick={() => this.props.history.goBack()}>Close</h1>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>
                 <input type='text' name='body' placeholder='Body'></input>
@@ -32,4 +36,18 @@ class AddComment extends Component {
     }
 }
 
-export default AddComment
+function mapStateToProps ({ comments, posts }) {
+    return {
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+      addPostComment: (data, callback) => dispatch(addPostComment(data, callback)),
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AddComment)

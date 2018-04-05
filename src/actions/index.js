@@ -8,6 +8,9 @@ import {
     UPDATE_POST,
     DELETE_POST,
     SET_POST_COMMENTS,
+    ADD_POST_COMMENT,
+    UPDATE_POST_COMMENT,
+    DELETE_POST_COMMENT,
 } from './types';
 
 /*
@@ -159,10 +162,28 @@ export function fetchComments(postId) {
   }
 }
 
+export function addPostComment(data, callback) {
+  return dispatch => {
+    ReadableAPI.createComment(data, data).then(
+      (result) => {
+        dispatch(actionAddPostComment(result));
+        callback()
+      }
+    )
+  }
+}
+
 function actionSetPostComments (postId, comments) {
   return {
     type : SET_POST_COMMENTS,
     postId,
     comments
+  }
+}
+
+function actionAddPostComment (comment) {
+  return {
+    type : ADD_POST_COMMENT,
+    comment
   }
 }

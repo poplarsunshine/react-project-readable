@@ -18,17 +18,6 @@ class App extends Component {
     curComment : {},
   }
 
-  // Comment
-  addComment = (comment, post) => {
-    console.log('comment body', comment.body);
-    console.log('post id', post.id);
-    ReadableAPI.createComment(comment, post).then(
-      (result) => {
-        console.log('createComment result:', result);
-      }
-    )
-  }
-
   updateComment = (data, comment) => {
     console.log('update body', data.body);
     console.log('comment id', comment.id);
@@ -61,20 +50,7 @@ class App extends Component {
 
         <Route exact path='/:category/:id' component={ PostDetail }/>
 
-        <Route exact path='/:category/:id/addComment' render={({ history })=>(
-          <AddComment
-            onCreateComment={(comment) => {
-              const post = this.state.curPost;
-              this.addComment(comment, post)
-              history.push("/" + post.category + "/" + post.id);
-            }}
-            onCreateCommentCancel = {() => {
-              // history.goback();
-              const post = this.state.curPost;
-              history.push("/" + post.category + "/" + post.id);
-            }}
-          />
-        )}/>
+        <Route exact path='/:category/:id/addComment' component={ AddComment }/>
 
         <Route exact path='/:parentId/:id/editComment' render={({ history })=>(
           <EditComment
