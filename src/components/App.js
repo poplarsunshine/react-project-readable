@@ -18,15 +18,6 @@ class App extends Component {
     curComment : {},
   }
 
-  postEdit = (data, post) => {
-    console.log('postEdit ID:', post.id);
-    ReadableAPI.postUpdate(data, post).then(
-      (result) => {
-        this.props.fetchPosts();
-      }
-    )
-  }
-
   // Comment
   addComment = (comment, post) => {
     console.log('comment body', comment.body);
@@ -60,78 +51,15 @@ class App extends Component {
 
       <div className="App">
 
-        <Route exact path='/' render={({ history })=>(
-          <Main
+        <Route exact path='/' component={ Main }/>
 
-          postEdit = {(post) => {
-            console.log('postEdit ID:', post.id);
-            this.setState({
-              curPost : post
-            })
-            history.push("/" + post.category + "/" + post.id + '/editPost');
-          }}
+        <Route exact path='/:category' component={ Main }/>
 
-          postDetail = {(post) => {
-            console.log('postDetail ID:', post.id);
-            this.setState({
-              curPost : post
-            })
-            history.push("/" + post.category + "/" + post.id);
-          }}
-          />
-        )}/>
+        <Route exact path='/readable/post/add' component={ AddPost } />
 
-        <Route exact path='/:category' render={({ history })=>(
-          <Main
+        <Route exact path='/:category/:postId/editPost' component={ EditPost }/>
 
-          postEdit = {(post) => {
-            console.log('postEdit ID:', post.id);
-            this.setState({
-              curPost : post
-            })
-            history.push("/" + post.category + "/" + post.id + '/editPost');
-          }}
-
-          postDetail = {(post) => {
-            console.log('postDetail ID:', post.id);
-            this.setState({
-              curPost : post
-            })
-            history.push("/" + post.category + "/" + post.id);
-          }}
-          />
-        )}/>
-
-        <Route exact path='/readable/post/add' component={AddPost} />
-
-        <Route exact path='/:category/:id/editPost' render={({ history })=>(
-          <EditPost
-            post = {this.state.curPost}
-            onUpdatePost={(data, post) => {
-              this.postEdit(data, post)
-              history.push('/')
-            }}
-          />
-        )}/>
-
-        <Route exact path='/:category/:id' render={({ history })=>(
-          <PostDetail
-            post = {this.state.curPost}
-            postEdit = {(post) => {
-              console.log('postEdit ID:', post.id);
-              this.setState({
-                curPost : post
-              })
-              history.push("/" + post.category + "/" + post.id + '/editPost');
-            }}
-            commentUpdate={(comment) => {
-              this.setState({
-                curComment : comment
-              })
-              history.push("/" + comment.parentId + "/" + comment.id + '/editComment');
-            }}
-          />
-        )}/>
+        <Route exact path='/:category/:id' component={ PostDetail }/>
 
         <Route exact path='/:category/:id/addComment' render={({ history })=>(
           <AddComment

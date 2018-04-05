@@ -12,6 +12,15 @@ class Post extends Component {
     postDetail : PropTypes.func.isRequired,
   }
 
+  postEdit = (post) => {
+    this.props.history.push("/" + post.category + "/" + post.id + '/editPost');
+  }
+
+  postDetail = (post) => {
+    this.props.history.push("/" + post.category + "/" + post.id);
+  }
+
+
   render() {
     const { post, postEdit, postDetail, showDetailBtn } = this.props
       return (
@@ -84,7 +93,7 @@ class Post extends Component {
           <br/>
           <div className="cotent-row">
             <button class="ui primary button"
-              onClick={() => postEdit(post)}>
+              onClick={() => this.postEdit(post)}>
               Edit
             </button>
             <button class="ui button"
@@ -95,7 +104,7 @@ class Post extends Component {
             </button>
             {showDetailBtn && (
               <button class="ui button"
-                onClick={() => postDetail(post)}>
+                onClick={() => this.postDetail(post)}>
                 Detail
               </button>
             )}

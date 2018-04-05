@@ -106,6 +106,17 @@ export function postDelete(data, callback) {
   }
 }
 
+export function postEdit(data, callback) {
+  return dispatch => {
+    ReadableAPI.postUpdate(data, data).then(
+      (result) => {
+        callback()
+        dispatch(actionUpdatePost(result));
+      }
+    )
+  }
+}
+
 function actionSetPosts (posts) {
 
   console.log('actionSetPosts:', posts);

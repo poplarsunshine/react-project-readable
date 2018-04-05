@@ -5,15 +5,11 @@ import Post from './Post.js'
 import Comment from './Comment.js'
 import * as ReadableAPI from '../utils/api'
 
+import { connect } from 'react-redux'
+
 class PostDetail extends Component {
 
     static propTypes = {
-      post : PropTypes.object.isRequired,
-      postUpVote : PropTypes.func.isRequired,
-      postDownVote : PropTypes.func.isRequired,
-      postEdit : PropTypes.func.isRequired,
-      postDelete : PropTypes.func.isRequired,
-
       commentUpdate : PropTypes.func.isRequired,
     }
 
@@ -79,18 +75,20 @@ class PostDetail extends Component {
     }
 
     componentDidMount() {
-      const post = this.props.post;
-      this.setState(
-        {postID : post.id}
-      )
-      // this.getPostDetail(this.state.postID);
-      // this.getComments(this.state.postID);
-      this.getPostDetail(post.id);
-      this.getComments(post.id);
+      let postId = this.props.match.params.id
+      this.getPostDetail(postId);
+      this.getComments(postId);
     }
 
     render() {
-        const { post, postUpVote, postDownVote, postEdit, postDelete } = this.props;
+      let postId = this.props.match.params.id
+      console.log('match.params.postId:', postId);
+      let post = {}
+      if(this.props.posts && this.props.posts.data){
+          const postList = this.props.posts.data.filter(post => post.id === postId);
+          post = postList.length > 0 ? postList[0] : {} ;
+      }
+
         const { comments } = this.state;
 
         return (
@@ -101,10 +99,7 @@ class PostDetail extends Component {
             <Link className='close-create-comment' to='/'>Close</Link>
             <Post className='post-detail'
               post = {post}
-              postUpVote={(data) => {postUpVote(data)}}
-              postDownVote={(data) => {postDownVote(data)}}
-              postEdit={(data) => {postEdit(data)}}
-              postDelete={(data) => {postDelete(data)}}
+              history={this.props.history}
             >
             </Post>
 
@@ -135,4 +130,19 @@ class PostDetail extends Component {
     }
 }
 
-export default PostDetail
+function mapStateToProps ({ categories, posts, sortType }) {
+    return {
+      posts
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PostDetail)

@@ -17,8 +17,6 @@ class Main extends Component {
   }
 
   static propTypes = {
-    posts : PropTypes.array.isRequired,
-    postEdit : PropTypes.func.isRequired,
     postDetail : PropTypes.func.isRequired,
   }
 
@@ -30,9 +28,7 @@ class Main extends Component {
 
   render() {
     const { categories, posts, sortType,
-            postEdit, postDetail,
-            onSelectAllType,
-            onSelectType,
+            postDetail,
            } = this.props
 
     let postsData = {}
@@ -89,9 +85,9 @@ class Main extends Component {
               <li key={post.id}>
                 <Post
                   post={post}
-                  postEdit={(data) => {postEdit(data)}}
                   postDetail={(data) => {postDetail(data)}}
                   showDetailBtn = {true}
+                  history={this.props.history}
                   >
                 </Post>
               </li>
