@@ -56,7 +56,7 @@ class Main extends Component {
           </li>
           </Link>
 
-          {categories.map((cate) => (
+          {categories && categories.map && categories.map((cate) => (
             <Link
               to={cate.name}
             >
@@ -65,6 +65,7 @@ class Main extends Component {
             </li>
             </Link>
           ))}
+
         </ul>
         <br/>
         <div>

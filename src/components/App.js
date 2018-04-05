@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Link, Route } from 'react-router-dom'
 import * as ReadableAPI from '../utils/api'
+import { fetchCategories } from '../actions'
 import sortBy from 'sort-by'
-
+import { connect } from 'react-redux'
 
 import Main from './Main.js'
 import PostDetail from './PostDetail.js'
@@ -16,7 +17,7 @@ import AddComment from './AddComment.js'
 class App extends Component {
 
   state = {
-    categories : [],
+    // categories : [],
     posts : [],
     curCategory : 'all',
     curPost : {},
@@ -52,14 +53,14 @@ class App extends Component {
   }
 
   // API
-  getAllCategories = () => {
-    ReadableAPI.getAllCategories().then(
-      (categories) => {
-        console.log('categories:', categories);
-        this.setState({categories})
-      }
-    )
-  }
+  // getAllCategories = () => {
+  //   ReadableAPI.getAllCategories().then(
+  //     (categories) => {
+  //       console.log('categories:', categories);
+  //       this.setState({categories})
+  //     }
+  //   )
+  // }
 
   getAllPosts = () => {
     ReadableAPI.getAllPosts().then(
@@ -151,12 +152,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-      this.getAllCategories();
+      // this.getAllCategories();
       this.getAllPosts();
+
+      this.props.fetchCategories();
   }
 
   render() {
-    const { categories, posts, post, sortType } = this.state
+    const { posts, post, sortType } = this.state
+    const { categories } = this.props
+
+    console.log('render props categories:', categories);
+
     posts.sort(sortBy(sortType))
 
     return (
@@ -248,7 +255,7 @@ class App extends Component {
 
         <Route exact path='/readable/post/add' render={({ history })=>(
           <AddPost
-            categories = {this.state.categories}
+            categories = {this.props.categories}
             onCreatePost={(post) => {
               this.addPost(post)
               history.push('/')
@@ -329,4 +336,19 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps ({ categories }) {
+    return {
+        categories
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        fetchCategories: (categories) => dispatch(fetchCategories(categories))
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App)
