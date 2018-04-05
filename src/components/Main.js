@@ -38,7 +38,11 @@ class Main extends Component {
             onSelectType,
            } = this.props
 
-    posts && posts.map && posts.sort(sortBy(sortType))
+    let postsData = {}
+    if(posts && posts.data){
+      postsData = posts.data
+    }
+    postsData && postsData.map && postsData.sort(sortBy(sortType))
 
     return (
       <div>
@@ -84,7 +88,7 @@ class Main extends Component {
 
         <div className="comments">
           <ol className='comment-list'>
-            {posts && posts.map && posts.map((post) => (
+            {postsData && postsData.map && postsData.map((post) => (
               <li key={post.id}>
                 <Post
                   post={post}

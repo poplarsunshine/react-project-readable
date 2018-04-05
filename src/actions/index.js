@@ -2,8 +2,9 @@ import * as ReadableAPI from '../utils/api'
 
 import {
     SET_CATEGORIES,
-    SET_POSTS,
     SET_SORT_TYPE,
+    SET_POSTS,
+    ADD_POST,
 } from './types';
 
 /*
@@ -43,7 +44,7 @@ export function fetchPosts() {
   return dispatch => {
     ReadableAPI.getAllPosts().then(
       (posts) => {
-        dispatch(setPosts(posts));
+        dispatch(actionSetPosts(posts));
       }
     )
   }
@@ -53,7 +54,7 @@ export function fetchPostsWithType(path) {
   return dispatch => {
     ReadableAPI.getPostsType(path).then(
       (posts) => {
-        dispatch(setPosts(posts));
+        dispatch(actionSetPosts(posts));
       }
     )
   }
@@ -64,6 +65,7 @@ export function addPost(data, callback) {
     ReadableAPI.createPost(data).then(
       (result) => {
         callback()
+        dispatch(actionAddPost(result));
       }
     )
   }
@@ -89,9 +91,29 @@ export function postDownVote(data, callback) {
   }
 }
 
-function setPosts (data) {
+export function postDelete(data, callback) {
+  return dispatch => {
+    ReadableAPI.postDelete(data).then(
+      (result) => {
+        callback()
+      }
+    )
+  }
+}
+
+function actionSetPosts (posts) {
+
+  console.log('actionSetPosts:', posts);
+
   return {
     type : SET_POSTS,
-    posts : data
+    posts
+  }
+}
+
+function actionAddPost (post) {
+  return {
+    type : ADD_POST,
+    post
   }
 }
