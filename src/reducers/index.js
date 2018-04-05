@@ -6,6 +6,7 @@ import {
   ADD_POST,
   UPDATE_POST,
   DELETE_POST,
+  SET_POST_COMMENTS,
 } from '../actions/types'
 
 function categories (state = {}, action) {
@@ -57,10 +58,23 @@ function sortType (state = {}, action) {
   }
 }
 
+function comments (state = {}, action) {
+  switch (action.type) {
+    case SET_POST_COMMENTS:
+      return {
+        ...state,
+        [action.postId]: action.comments.filter(comment => comment.deleted === false)
+      }
+    default:
+      return state;
+  }
+}
+
 export default combineReducers(
   {
     categories,
     posts,
     sortType,
+    comments,
   }
 )

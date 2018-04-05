@@ -5,6 +5,7 @@ import Post from './Post.js'
 import Comment from './Comment.js'
 import * as ReadableAPI from '../utils/api'
 
+import { fetchComments } from '../actions'
 import { connect } from 'react-redux'
 
 class PostDetail extends Component {
@@ -17,36 +18,11 @@ class PostDetail extends Component {
       e.preventDefault()
     }
 
-    state = {
-      comments : [],
-      postID : '',
-    }
-
-    getPostDetail = (id) => {
-      console.log('getPostDetail ID:', id);
-      // ReadableAPI.getCommentsWithPost(id).then(
-      //   (comments) => {
-      //     console.log('comments:', comments);
-      //     this.setState({comments})
-      //   }
-      // )
-    }
-
-    getComments = (id) => {
-      console.log('getComments ID:', id);
-      ReadableAPI.getCommentsWithPost(id).then(
-        (comments) => {
-          console.log('comments:', comments);
-          this.setState({comments})
-        }
-      )
-    }
-
     commentUpVote = (comment) => {
       ReadableAPI.commentUpVote(comment).then(
         (result) => {
           console.log('commentUpVote result:', result);
-          this.getComments(this.state.postID);
+          this.props.fetchComments(this.props.match.params.id);
         }
       )
     }
@@ -55,7 +31,7 @@ class PostDetail extends Component {
       ReadableAPI.commentDownVote(comment).then(
         (result) => {
           console.log('commentDownVote result:', result);
-          this.getComments(this.state.postID);
+          this.props.fetchComments(this.props.match.params.id);
         }
       )
     }
@@ -69,15 +45,13 @@ class PostDetail extends Component {
     commentDelete = (comment) => {
       ReadableAPI.commentDelete(comment).then(
         (result) => {
-          this.getComments(this.state.postID);
+          this.props.fetchComments(this.props.match.params.id);
         }
       )
     }
 
     componentDidMount() {
-      let postId = this.props.match.params.id
-      this.getPostDetail(postId);
-      this.getComments(postId);
+      this.props.fetchComments(this.props.match.params.id);
     }
 
     render() {
@@ -89,7 +63,10 @@ class PostDetail extends Component {
           post = postList.length > 0 ? postList[0] : {} ;
       }
 
-        const { comments } = this.state;
+      let postComments = {}
+      if(this.props.comments && this.props.comments[postId]){
+          postComments = this.props.comments[postId]
+      }
 
         return (
           <div>
@@ -111,7 +88,7 @@ class PostDetail extends Component {
 
             <div className="comments">
               <ol className='comment-list'>
-                {comments.map((comment) => (
+                {postComments && postComments.map && postComments.map((comment) => (
                   <li key={comment.id}>
                     <Comment
                       comment={comment}
@@ -130,15 +107,16 @@ class PostDetail extends Component {
     }
 }
 
-function mapStateToProps ({ categories, posts, sortType }) {
+function mapStateToProps ({ comments, posts }) {
     return {
-      posts
+      posts,
+      comments
     }
 }
 
 function mapDispatchToProps (dispatch) {
     return {
-
+      fetchComments: (data) => dispatch(fetchComments(data)),
     }
 }
 

@@ -7,6 +7,7 @@ import {
     ADD_POST,
     UPDATE_POST,
     DELETE_POST,
+    SET_POST_COMMENTS,
 } from './types';
 
 /*
@@ -118,9 +119,6 @@ export function postEdit(data, callback) {
 }
 
 function actionSetPosts (posts) {
-
-  console.log('actionSetPosts:', posts);
-
   return {
     type : SET_POSTS,
     posts
@@ -145,5 +143,26 @@ function actionDeletePost (post) {
   return {
     type : DELETE_POST,
     post
+  }
+}
+
+/*
+Actions for comments
+*/
+export function fetchComments(postId) {
+  return dispatch => {
+    ReadableAPI.getCommentsWithPost(postId).then(
+      (comments) => {
+        dispatch(actionSetPostComments(postId, comments));
+      }
+    )
+  }
+}
+
+function actionSetPostComments (postId, comments) {
+  return {
+    type : SET_POST_COMMENTS,
+    postId,
+    comments
   }
 }

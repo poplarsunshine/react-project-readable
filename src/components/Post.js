@@ -114,7 +114,7 @@ class Post extends Component {
     }
 }
 
-function mapStateToProps ({ categories, posts, sortType }) {
+function mapStateToProps ({ categories, posts }) {
     return {
 
     }

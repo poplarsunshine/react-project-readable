@@ -45,7 +45,7 @@ class EditPost extends Component {
     }
 }
 
-function mapStateToProps ({ categories, posts, sortType }) {
+function mapStateToProps ({ posts }) {
     return {
       posts
     }
