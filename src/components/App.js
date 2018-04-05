@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Link, Route } from 'react-router-dom'
 import * as ReadableAPI from '../utils/api'
-import { fetchCategories, fetchPosts } from '../actions'
+import { fetchCategories, fetchPosts, fetchPostsWithType } from '../actions'
 import sortBy from 'sort-by'
 import { connect } from 'react-redux'
 
@@ -17,27 +17,13 @@ import AddComment from './AddComment.js'
 class App extends Component {
 
   state = {
-    // categories : [],
-    // posts : [],
-    curCategory : 'all',
     curPost : {},
     curComment : {},
     sortType : 'timestamp',
   }
 
   onSelectAllType = () => {
-    this.setState({
-      curCategory : 'all'
-    })
     this.getAllPosts();
-  }
-
-  onSelectType = (path) => {
-    console.log('onSelectType:', path);
-    this.setState({
-      curCategory : path
-    })
-    this.getPostsType(path);
   }
 
   postSortOrder = (sortType) => {
@@ -51,25 +37,6 @@ class App extends Component {
     console.log('newPost:', post);
     this.createPost(post);
   }
-
-  // API
-  // getAllCategories = () => {
-  //   ReadableAPI.getAllCategories().then(
-  //     (categories) => {
-  //       console.log('categories:', categories);
-  //       this.setState({categories})
-  //     }
-  //   )
-  // }
-
-  // getAllPosts = () => {
-  //   ReadableAPI.getAllPosts().then(
-  //     (posts) => {
-  //       console.log('posts:', posts);
-  //       this.setState({posts})
-  //     }
-  //   )
-  // }
 
   getPostsType = (path) => {
     ReadableAPI.getPostsType(path).then(
@@ -126,10 +93,6 @@ class App extends Component {
     )
   }
 
-  // postDetail = (post) => {
-  //   console.log('postDetail ID:', post.id);
-  // }
-
   // Comment
   addComment = (comment, post) => {
     console.log('comment body', comment.body);
@@ -152,9 +115,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-      // this.getAllCategories();
-      //this.getAllPosts();
-
       this.props.fetchCategories();
       this.props.fetchPosts();
   }
@@ -174,10 +134,10 @@ class App extends Component {
           <Main
 
           onSelectAllType = {() => {
-            this.onSelectAllType()
+            this.props.fetchPosts();
           }}
           onSelectType = {(type) => {
-            this.onSelectType(type)
+            this.props.fetchPostsWithType(type)
           }}
           postSortOrder = {(order) => {
             this.postSortOrder(order)
@@ -215,10 +175,10 @@ class App extends Component {
         <Route exact path='/:category' render={({ history })=>(
           <Main
           onSelectAllType = {() => {
-            this.onSelectAllType()
+            this.props.fetchPosts();
           }}
           onSelectType = {(type) => {
-            this.onSelectType(type)
+            this.props.fetchPostsWithType(type)
           }}
           postSortOrder = {(order) => {
             this.postSortOrder(order)
@@ -348,6 +308,7 @@ function mapDispatchToProps (dispatch) {
     return {
         fetchCategories: (data) => dispatch(fetchCategories(data)),
         fetchPosts: (data) => dispatch(fetchPosts(data)),
+        fetchPostsWithType: (data) => dispatch(fetchPostsWithType(data)),
     }
 }
 

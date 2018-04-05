@@ -40,7 +40,7 @@ export function fetchPosts() {
 
 export function fetchPostsWithType(path) {
   return dispatch => {
-    ReadableAPI.getPostsType().then(
+    ReadableAPI.getPostsType(path).then(
       (posts) => {
         dispatch(setPosts(posts));
       }
