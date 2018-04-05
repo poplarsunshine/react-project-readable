@@ -5,6 +5,9 @@ import Post from './Post.js'
 import '../App.css';
 import { Item, Statistic, Label, Form, Button, Grid, Icon } from 'semantic-ui-react'
 
+import { fetchCategories, fetchPosts, fetchPostsWithType } from '../actions'
+import { connect } from 'react-redux'
+
 class Main extends Component {
 
   static propTypes = {
@@ -16,16 +19,10 @@ class Main extends Component {
     postDetail : PropTypes.func.isRequired,
   }
 
-  onSelectAllType = () => {
-
-  }
-
-  onSelectType = (path) => {
-
-  }
-
-  postSortOrder = (sortType) => {
-
+  componentDidMount() {
+    console.log('Main componentDidMount');
+    this.props.fetchCategories();
+    this.props.fetchPosts();
   }
 
   render() {
@@ -94,10 +91,27 @@ class Main extends Component {
             ))}
           </ol>
         </div>
-
       </div>
     );
   }
 }
 
-export default Main;
+function mapStateToProps ({ categories, posts }) {
+    return {
+        categories,
+        posts,
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        fetchCategories: (data) => dispatch(fetchCategories(data)),
+        fetchPosts: (data) => dispatch(fetchPosts(data)),
+        fetchPostsWithType: (data) => dispatch(fetchPostsWithType(data)),
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Main)

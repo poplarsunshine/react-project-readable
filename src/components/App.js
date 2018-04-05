@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Link, Route } from 'react-router-dom'
-import * as ReadableAPI from '../utils/api'
-import { fetchCategories, fetchPosts, fetchPostsWithType } from '../actions'
 import sortBy from 'sort-by'
-import { connect } from 'react-redux'
+import { Link, BrowserRouter, Route } from 'react-router-dom'
+import * as ReadableAPI from '../utils/api'
 
 import Main from './Main.js'
 import PostDetail from './PostDetail.js'
@@ -29,25 +27,11 @@ class App extends Component {
     })
   }
 
-  addPost = (post) => {
-    console.log('newPost:', post);
-    this.createPost(post);
-  }
-
   getPostsType = (path) => {
     ReadableAPI.getPostsType(path).then(
       (posts) => {
         console.log(path, ' posts:', posts);
         this.setState({posts})
-      }
-    )
-  }
-
-  createPost = (post) => {
-    ReadableAPI.createPost(post).then(
-      (result) => {
-        console.log('result:', result);
-        this.getAllPosts();
       }
     )
   }
@@ -107,8 +91,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-      this.props.fetchCategories();
-      this.props.fetchPosts();
+    console.log('App componentDidMount');
   }
 
   render() {
@@ -120,6 +103,8 @@ class App extends Component {
     posts && posts.map && posts.sort(sortBy(sortType))
 
     return (
+      <BrowserRouter>
+
       <div className="App">
 
         <Route exact path='/' render={({ history })=>(
@@ -135,9 +120,7 @@ class App extends Component {
             this.postSortOrder(order)
           }}
 
-          categories = {categories}
           sortType = {sortType}
-          posts = {posts}
           postUpVote = {(post) => {
             this.postUpVote(post)
           }}
@@ -176,9 +159,7 @@ class App extends Component {
             this.postSortOrder(order)
           }}
 
-          categories = {categories}
           sortType = {sortType}
-          posts = {posts}
 
           postUpVote = {(post) => {
             this.postUpVote(post)
@@ -206,15 +187,7 @@ class App extends Component {
           />
         )}/>
 
-        <Route exact path='/readable/post/add' render={({ history })=>(
-          <AddPost
-            categories = {this.props.categories}
-            onCreatePost={(post) => {
-              this.addPost(post)
-              history.push('/')
-            }}
-          />
-        )}/>
+        <Route exact path='/readable/post/add' component={AddPost} />
 
         <Route exact path='/:category/:id/editPost' render={({ history })=>(
           <EditPost
@@ -285,26 +258,10 @@ class App extends Component {
           />
         )}/>
       </div>
+
+      </BrowserRouter>
     );
   }
 }
 
-function mapStateToProps ({ categories, posts }) {
-    return {
-        categories,
-        posts,
-    }
-}
-
-function mapDispatchToProps (dispatch) {
-    return {
-        fetchCategories: (data) => dispatch(fetchCategories(data)),
-        fetchPosts: (data) => dispatch(fetchPosts(data)),
-        fetchPostsWithType: (data) => dispatch(fetchPostsWithType(data)),
-    }
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App)
+export default App

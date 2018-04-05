@@ -2,37 +2,33 @@ import React, { Component } from 'react'
 import { Link, Route } from 'react-router-dom'
 import serializeForm from 'form-serialize'
 import PropTypes from 'prop-types'
+import { addPost } from '../actions'
+import { connect } from 'react-redux'
 
 class AddPost extends Component {
 
-  static propTypes = {
-    categories : PropTypes.array.isRequired,
-  }
-
-  state = {
-    category : ''
-  }
-
-    handleSubmit = (e) => {
-      e.preventDefault()
-      const values = serializeForm(e.target, {hash: true})
-      console.log('handleSubmit:', values);
-      values.category = this.state.category
-      console.log('after handleSubmit:', values);
-      if (this.props.onCreatePost)
-        this.props.onCreatePost(values)
+    state = {
+      selectCategory : ''
     }
 
     setCategorie = (category) => {
       this.setState(
-        { category : category }
+        { selectCategory : category }
       );
+    }
+
+    handleSubmit = (e) => {
+      e.preventDefault()
+      const values = serializeForm(e.target, {hash: true})
+      values.category = this.state.selectCategory
+
+      this.props.addPost(values, () => {
+        this.props.history.push('/');
+      });
     }
 
     render() {
       const { categories } = this.props
-      console.log('categories:', categories);
-
         return (
           <div>
           <h1>
@@ -45,7 +41,7 @@ class AddPost extends Component {
                 Select Category:
                 <select onChange={event => this.setCategorie(event.target.value)}>
                   <option value="none" selected>None</option>
-                  {categories.map((categorie) => (
+                  {categories && categories.map && categories.map((categorie) => (
                     <option value={categorie.name}>{categorie.name}</option>
                   ))}
                 </select>
@@ -62,4 +58,19 @@ class AddPost extends Component {
     }
 }
 
-export default AddPost
+function mapStateToProps ({ categories }) {
+    return {
+        categories,
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        addPost: (data, callback) => dispatch(addPost(data, callback)),
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AddPost)

@@ -48,6 +48,16 @@ export function fetchPostsWithType(path) {
   }
 }
 
+export function addPost(data, callback) {
+  return dispatch => {
+    ReadableAPI.createPost(data).then(
+      (result) => {
+        callback()
+      }
+    )
+  }
+}
+
 function setPosts (data) {
   return {
     type : SET_POSTS,
