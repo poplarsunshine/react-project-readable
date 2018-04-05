@@ -18,36 +18,10 @@ class PostDetail extends Component {
       e.preventDefault()
     }
 
-    commentUpVote = (comment) => {
-      ReadableAPI.commentUpVote(comment).then(
-        (result) => {
-          console.log('commentUpVote result:', result);
-          this.props.fetchComments(this.props.match.params.id);
-        }
-      )
-    }
-
-    commentDownVote = (comment) => {
-      ReadableAPI.commentDownVote(comment).then(
-        (result) => {
-          console.log('commentDownVote result:', result);
-          this.props.fetchComments(this.props.match.params.id);
-        }
-      )
-    }
-
     commentEdit = (data) => {
       console.log('commentEdit body:', data.body);
       const { commentUpdate } = this.props;
       commentUpdate(data);
-    }
-
-    commentDelete = (comment) => {
-      ReadableAPI.commentDelete(comment).then(
-        (result) => {
-          this.props.fetchComments(this.props.match.params.id);
-        }
-      )
     }
 
     componentDidMount() {
@@ -92,10 +66,7 @@ class PostDetail extends Component {
                   <li key={comment.id}>
                     <Comment
                       comment={comment}
-                      commentUpVote={(data) => {this.commentUpVote(data)}}
-                      commentDownVote={(data) => {this.commentDownVote(data)}}
                       commentEdit={(data) => {this.commentEdit(data)}}
-                      commentDelete={(data) => {this.commentDelete(data)}}
                       >
                     </Comment>
                   </li>

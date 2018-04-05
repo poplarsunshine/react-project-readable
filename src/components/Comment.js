@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { commentDownVote, commentUpVote, commentDelete } from '../actions'
+import { connect } from 'react-redux'
+
 class Comment extends Component {
 
   static propTypes = {
     comment : PropTypes.object.isRequired,
-    commentUpVote : PropTypes.func.isRequired,
-    commentDownVote : PropTypes.func.isRequired,
     commentEdit : PropTypes.func.isRequired,
-    commentDelete : PropTypes.func.isRequired,
   }
 
   render() {
-    const { comment, commentUpVote, commentDownVote, commentEdit, commentDelete } = this.props
+    const { comment, commentEdit } = this.props
       return (
         <div className='comment-grid'>
           <div className="cotent-row">
@@ -51,11 +51,11 @@ class Comment extends Component {
           <br/>
           <div className="cotent-row">
             <button class="ui primary button"
-              onClick={() => commentUpVote(comment)}>
+              onClick={() => this.props.commentUpVote(comment)}>
               Vote Up
             </button>
             <button class="ui button"
-              onClick={() => commentDownVote(comment)}>
+              onClick={() => this.props.commentDownVote(comment)}>
               Vote Down
             </button>
           </div>
@@ -67,7 +67,7 @@ class Comment extends Component {
               Edit
             </button>
             <button class="ui button"
-              onClick={() => commentDelete(comment)}>
+              onClick={() => this.props.commentDelete(comment)}>
               Delete
             </button>
           </div>
@@ -76,4 +76,22 @@ class Comment extends Component {
     }
 }
 
-export default Comment
+
+function mapStateToProps ({ categories, posts }) {
+    return {
+
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        commentDownVote: (data, callback) => dispatch(commentDownVote(data, callback)),
+        commentUpVote: (data, callback) => dispatch(commentUpVote(data, callback)),
+        commentDelete: (data, callback) => dispatch(commentDelete(data, callback)),
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Comment)

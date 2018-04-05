@@ -173,6 +173,50 @@ export function addPostComment(data, callback) {
   }
 }
 
+export function commentUpVote(data, callback) {
+  return dispatch => {
+    ReadableAPI.commentUpVote(data).then(
+      (result) => {
+        // callback()
+        dispatch(actionUpdatePostComment(result));
+      }
+    )
+  }
+}
+
+export function commentDownVote(data, callback) {
+  return dispatch => {
+    ReadableAPI.commentDownVote(data).then(
+      (result) => {
+        // callback()
+        dispatch(actionUpdatePostComment(result));
+      }
+    )
+  }
+}
+
+export function commentDelete(data, callback) {
+  return dispatch => {
+    ReadableAPI.commentDelete(data).then(
+      (result) => {
+        // callback()
+        dispatch(actionDeletePostComment(result));
+      }
+    )
+  }
+}
+
+export function commentEdit(data, callback) {
+  return dispatch => {
+    ReadableAPI.commentUpdate(data, data).then(
+      (result) => {
+        callback()
+        dispatch(actionUpdatePostComment(result));
+      }
+    )
+  }
+}
+
 function actionSetPostComments (postId, comments) {
   return {
     type : SET_POST_COMMENTS,
@@ -184,6 +228,20 @@ function actionSetPostComments (postId, comments) {
 function actionAddPostComment (comment) {
   return {
     type : ADD_POST_COMMENT,
+    comment
+  }
+}
+
+function actionUpdatePostComment (comment) {
+  return {
+    type : UPDATE_POST_COMMENT,
+    comment
+  }
+}
+
+function actionDeletePostComment (comment) {
+  return {
+    type : DELETE_POST_COMMENT,
     comment
   }
 }

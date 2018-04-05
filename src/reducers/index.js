@@ -73,6 +73,17 @@ function comments (state = {}, action) {
         ...state,
         [action.comment.parentId]: state[action.comment.parentId].concat([action.comment])
       }
+    case UPDATE_POST_COMMENT :
+      return {
+          ...state,
+          [action.comment.parentId]: state[action.comment.parentId].map((comment) =>
+          {return comment.id === action.comment.id ? action.comment : comment})
+      }
+    case DELETE_POST_COMMENT :
+      return {
+          ...state,
+          [action.comment.parentId]: state[action.comment.parentId].filter(comment => comment.id !== action.comment.id)
+      }
     default:
       return state;
   }

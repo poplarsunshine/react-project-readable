@@ -78,13 +78,13 @@ class Post extends Component {
           <div className="cotent-row">
             <button class="ui primary button"
               onClick={() => this.props.postUpVote(post, () => {
-                this.props.fetchPosts();
+                // this.props.fetchPosts();
               })}>
               Vote Up
             </button>
             <button class="ui button"
               onClick={() => this.props.postDownVote(post, () => {
-                this.props.fetchPosts();
+                // this.props.fetchPosts();
               })}>
               Vote Down
             </button>
