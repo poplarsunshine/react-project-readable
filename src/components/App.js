@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../App.css';
-import sortBy from 'sort-by'
 import { Link, BrowserRouter, Route } from 'react-router-dom'
 import * as ReadableAPI from '../utils/api'
 
@@ -18,13 +17,6 @@ class App extends Component {
     curPost : {},
     curComment : {},
     sortType : 'timestamp',
-  }
-
-  postSortOrder = (sortType) => {
-    console.log('sortBy:', sortType);
-    this.setState({
-      sortType : sortType
-    })
   }
 
   getPostsType = (path) => {
@@ -96,11 +88,6 @@ class App extends Component {
 
   render() {
     const { post, sortType } = this.state
-    const { posts, categories } = this.props
-
-    console.log('render props posts:', posts);
-
-    posts && posts.map && posts.sort(sortBy(sortType))
 
     return (
       <BrowserRouter>
@@ -110,17 +97,6 @@ class App extends Component {
         <Route exact path='/' render={({ history })=>(
           <Main
 
-          onSelectAllType = {() => {
-            this.props.fetchPosts();
-          }}
-          onSelectType = {(type) => {
-            this.props.fetchPostsWithType(type)
-          }}
-          postSortOrder = {(order) => {
-            this.postSortOrder(order)
-          }}
-
-          sortType = {sortType}
           postUpVote = {(post) => {
             this.postUpVote(post)
           }}
@@ -149,17 +125,6 @@ class App extends Component {
 
         <Route exact path='/:category' render={({ history })=>(
           <Main
-          onSelectAllType = {() => {
-            this.props.fetchPosts();
-          }}
-          onSelectType = {(type) => {
-            this.props.fetchPostsWithType(type)
-          }}
-          postSortOrder = {(order) => {
-            this.postSortOrder(order)
-          }}
-
-          sortType = {sortType}
 
           postUpVote = {(post) => {
             this.postUpVote(post)

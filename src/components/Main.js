@@ -4,11 +4,25 @@ import PropTypes from 'prop-types'
 import Post from './Post.js'
 import '../App.css';
 import { Item, Statistic, Label, Form, Button, Grid, Icon } from 'semantic-ui-react'
+import sortBy from 'sort-by'
 
 import { fetchCategories, fetchPosts, fetchPostsWithType } from '../actions'
 import { connect } from 'react-redux'
 
 class Main extends Component {
+
+  state = {
+    // curPost : {},
+    // curComment : {},
+    sortType : 'timestamp',
+  }
+
+  setPostSortOrder = (sortType) => {
+    console.log('sortBy:', sortType);
+    this.setState({
+      sortType : sortType
+    })
+  }
 
   static propTypes = {
     posts : PropTypes.array.isRequired,
@@ -26,11 +40,15 @@ class Main extends Component {
   }
 
   render() {
-    const { categories, sortType, posts,
+    const { sortType } = this.state
+
+    const { categories, posts,
             onCreatePost, postUpVote, postDownVote, postEdit, postDelete, postDetail,
             onSelectAllType,
             onSelectType,
-            postSortOrder } = this.props
+           } = this.props
+
+    posts && posts.map && posts.sort(sortBy(sortType))
 
     return (
       <div>
@@ -48,7 +66,7 @@ class Main extends Component {
           <Link
             to='/'
           >
-          <li key={'AllPosts'} onClick={() => onSelectAllType()} className='subheader'>
+          <li key={'AllPosts'} onClick={() => this.props.fetchPosts()} className='subheader'>
             {'AllPosts'}
           </li>
           </Link>
@@ -57,9 +75,10 @@ class Main extends Component {
             <Link
               to={cate.name}
             >
-            <li key={cate.name} onClick={() => onSelectType(cate.path)} className='subheader'>
+            <li key={cate.name} onClick={() => this.props.fetchPostsWithType(cate.path)} className='subheader'>
               {cate.name}
             </li>
+
             </Link>
           ))}
 
@@ -67,7 +86,7 @@ class Main extends Component {
         <br/>
         <div>
           <label>Sort By:</label>
-          <select onChange={event => postSortOrder(event.target.value)}>
+          <select onChange={event => this.setPostSortOrder(event.target.value)}>
             <option value='timestamp'>Date</option>
             <option value='voteScore'>Votes</option>
           </select>
