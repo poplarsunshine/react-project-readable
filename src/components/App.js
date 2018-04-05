@@ -16,32 +16,6 @@ class App extends Component {
   state = {
     curPost : {},
     curComment : {},
-    sortType : 'timestamp',
-  }
-
-  getPostsType = (path) => {
-    ReadableAPI.getPostsType(path).then(
-      (posts) => {
-        console.log(path, ' posts:', posts);
-        this.setState({posts})
-      }
-    )
-  }
-
-  postUpVote = (post) => {
-    ReadableAPI.postUpVote(post).then(
-      (result) => {
-        this.props.fetchPosts();
-      }
-    )
-  }
-
-  postDownVote = (post) => {
-    ReadableAPI.postDownVote(post).then(
-      (result) => {
-        this.props.fetchPosts();
-      }
-    )
   }
 
   postEdit = (data, post) => {
@@ -87,7 +61,7 @@ class App extends Component {
   }
 
   render() {
-    const { post, sortType } = this.state
+    const { post } = this.state
 
     return (
       <BrowserRouter>
@@ -97,12 +71,6 @@ class App extends Component {
         <Route exact path='/' render={({ history })=>(
           <Main
 
-          postUpVote = {(post) => {
-            this.postUpVote(post)
-          }}
-          postDownVote = {(post) => {
-            this.postDownVote(post)
-          }}
           postEdit = {(post) => {
             console.log('postEdit ID:', post.id);
             this.setState({
@@ -126,12 +94,6 @@ class App extends Component {
         <Route exact path='/:category' render={({ history })=>(
           <Main
 
-          postUpVote = {(post) => {
-            this.postUpVote(post)
-          }}
-          postDownVote = {(post) => {
-            this.postDownVote(post)
-          }}
           postEdit = {(post) => {
             console.log('postEdit ID:', post.id);
             this.setState({
@@ -167,12 +129,6 @@ class App extends Component {
         <Route exact path='/:category/:id' render={({ history })=>(
           <PostDetail
             post = {this.state.curPost}
-            postUpVote = {(post) => {
-              this.postUpVote(post)
-            }}
-            postDownVote = {(post) => {
-              this.postDownVote(post)
-            }}
             postEdit = {(post) => {
               console.log('postEdit ID:', post.id);
               this.setState({

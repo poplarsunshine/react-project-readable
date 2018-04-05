@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { fetchPosts, postDownVote, postUpVote } from '../actions'
+import { connect } from 'react-redux'
+
 class Post extends Component {
 
   static propTypes = {
     post : PropTypes.object.isRequired,
-    postUpVote : PropTypes.func.isRequired,
-    postDownVote : PropTypes.func.isRequired,
     postEdit : PropTypes.func.isRequired,
     postDelete : PropTypes.func.isRequired,
     postDetail : PropTypes.func.isRequired,
   }
 
   render() {
-    const { post, postUpVote, postDownVote, postEdit, postDelete, postDetail, showDetailBtn } = this.props
+    const { post, postEdit, postDelete, postDetail, showDetailBtn } = this.props
       return (
           <div className='post-grid'>
           <div className="cotent-row">
@@ -68,11 +69,15 @@ class Post extends Component {
           <br/>
           <div className="cotent-row">
             <button class="ui primary button"
-              onClick={() => postUpVote(post)}>
+              onClick={() => this.props.postUpVote(post, () => {
+                this.props.fetchPosts();
+              })}>
               Vote Up
             </button>
             <button class="ui button"
-              onClick={() => postDownVote(post)}>
+              onClick={() => this.props.postDownVote(post, () => {
+                this.props.fetchPosts();
+              })}>
               Vote Down
             </button>
           </div>
@@ -99,4 +104,21 @@ class Post extends Component {
     }
 }
 
-export default Post
+function mapStateToProps ({ categories, posts, sortType }) {
+    return {
+
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        fetchPosts: (data) => dispatch(fetchPosts(data)),
+        postDownVote: (data, callback) => dispatch(postDownVote(data, callback)),
+        postUpVote: (data, callback) => dispatch(postUpVote(data, callback)),
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Post)

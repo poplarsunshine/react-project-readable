@@ -27,6 +27,16 @@ function setCategories (data) {
 }
 
 /*
+Actions for sort
+*/
+export function setSortType (type) {
+  return {
+    type : SET_SORT_TYPE,
+    sortType : type
+  }
+}
+
+/*
 Actions for posts
 */
 export function fetchPosts() {
@@ -59,16 +69,29 @@ export function addPost(data, callback) {
   }
 }
 
+export function postUpVote(data, callback) {
+  return dispatch => {
+    ReadableAPI.postUpVote(data).then(
+      (result) => {
+        callback()
+      }
+    )
+  }
+}
+
+export function postDownVote(data, callback) {
+  return dispatch => {
+    ReadableAPI.postDownVote(data).then(
+      (result) => {
+        callback()
+      }
+    )
+  }
+}
+
 function setPosts (data) {
   return {
     type : SET_POSTS,
     posts : data
-  }
-}
-
-export function setSortType (type) {
-  return {
-    type : SET_SORT_TYPE,
-    sortType : type
   }
 }
