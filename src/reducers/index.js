@@ -4,6 +4,8 @@ import {
   SET_SORT_TYPE,
   SET_POSTS,
   ADD_POST,
+  UPDATE_POST,
+  DELETE_POST,
 } from '../actions/types'
 
 function categories (state = {}, action) {
@@ -27,6 +29,17 @@ function posts (state = {}, action) {
         ...state,
         data: state.data.concat([ action.post ]),
       }
+    case UPDATE_POST:
+      return {
+        ...state,
+        data: state.data.map((post) => {return post.id === action.post.id ? action.post : post})
+      }
+    case DELETE_POST:
+      return {
+        ...state,
+        data: state.data.filter(post => post.id !== action.post.id)
+      }
+
     default:
       return state;
   }

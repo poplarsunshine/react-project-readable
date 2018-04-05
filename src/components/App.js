@@ -27,14 +27,6 @@ class App extends Component {
     )
   }
 
-  postDelete = (post) => {
-    ReadableAPI.postDelete(post).then(
-      (result) => {
-        this.props.fetchPosts();
-      }
-    )
-  }
-
   // Comment
   addComment = (comment, post) => {
     console.log('comment body', comment.body);
@@ -78,9 +70,7 @@ class App extends Component {
             })
             history.push("/" + post.category + "/" + post.id + '/editPost');
           }}
-          postDelete = {(post) => {
-            this.postDelete(post)
-          }}
+
           postDetail = {(post) => {
             console.log('postDetail ID:', post.id);
             this.setState({
@@ -101,9 +91,7 @@ class App extends Component {
             })
             history.push("/" + post.category + "/" + post.id + '/editPost');
           }}
-          postDelete = {(post) => {
-            this.postDelete(post)
-          }}
+
           postDetail = {(post) => {
             console.log('postDetail ID:', post.id);
             this.setState({
@@ -135,9 +123,6 @@ class App extends Component {
                 curPost : post
               })
               history.push("/" + post.category + "/" + post.id + '/editPost');
-            }}
-            postDelete = {(post) => {
-              this.postDelete(post)
             }}
             commentUpdate={(comment) => {
               this.setState({

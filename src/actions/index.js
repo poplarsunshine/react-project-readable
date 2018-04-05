@@ -5,6 +5,8 @@ import {
     SET_SORT_TYPE,
     SET_POSTS,
     ADD_POST,
+    UPDATE_POST,
+    DELETE_POST,
 } from './types';
 
 /*
@@ -75,7 +77,8 @@ export function postUpVote(data, callback) {
   return dispatch => {
     ReadableAPI.postUpVote(data).then(
       (result) => {
-        callback()
+        // callback()
+        dispatch(actionUpdatePost(result));
       }
     )
   }
@@ -85,7 +88,8 @@ export function postDownVote(data, callback) {
   return dispatch => {
     ReadableAPI.postDownVote(data).then(
       (result) => {
-        callback()
+        // callback()
+        dispatch(actionUpdatePost(result));
       }
     )
   }
@@ -96,6 +100,7 @@ export function postDelete(data, callback) {
     ReadableAPI.postDelete(data).then(
       (result) => {
         callback()
+        dispatch(actionDeletePost(result));
       }
     )
   }
@@ -114,6 +119,20 @@ function actionSetPosts (posts) {
 function actionAddPost (post) {
   return {
     type : ADD_POST,
+    post
+  }
+}
+
+function actionUpdatePost (post) {
+  return {
+    type : UPDATE_POST,
+    post
+  }
+}
+
+function actionDeletePost (post) {
+  return {
+    type : DELETE_POST,
     post
   }
 }

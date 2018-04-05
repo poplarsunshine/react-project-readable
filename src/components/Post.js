@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { fetchPosts, postDownVote, postUpVote } from '../actions'
+import { fetchPosts, postDownVote, postUpVote, postDelete } from '../actions'
 import { connect } from 'react-redux'
 
 class Post extends Component {
@@ -9,12 +9,11 @@ class Post extends Component {
   static propTypes = {
     post : PropTypes.object.isRequired,
     postEdit : PropTypes.func.isRequired,
-    postDelete : PropTypes.func.isRequired,
     postDetail : PropTypes.func.isRequired,
   }
 
   render() {
-    const { post, postEdit, postDelete, postDetail, showDetailBtn } = this.props
+    const { post, postEdit, postDetail, showDetailBtn } = this.props
       return (
           <div className='post-grid'>
           <div className="cotent-row">
@@ -89,7 +88,9 @@ class Post extends Component {
               Edit
             </button>
             <button class="ui button"
-              onClick={() => postDelete(post)}>
+              onClick={() => this.props.postDelete(post , () => {
+                // this.props.history.push('/');
+              })}>
               Delete
             </button>
             {showDetailBtn && (
@@ -115,6 +116,7 @@ function mapDispatchToProps (dispatch) {
         fetchPosts: (data) => dispatch(fetchPosts(data)),
         postDownVote: (data, callback) => dispatch(postDownVote(data, callback)),
         postUpVote: (data, callback) => dispatch(postUpVote(data, callback)),
+        postDelete: (data, callback) => dispatch(postDelete(data, callback)),
     }
 }
 

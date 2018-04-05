@@ -18,10 +18,7 @@ class Main extends Component {
 
   static propTypes = {
     posts : PropTypes.array.isRequired,
-    postUpVote : PropTypes.func.isRequired,
-    postDownVote : PropTypes.func.isRequired,
     postEdit : PropTypes.func.isRequired,
-    postDelete : PropTypes.func.isRequired,
     postDetail : PropTypes.func.isRequired,
   }
 
@@ -33,7 +30,7 @@ class Main extends Component {
 
   render() {
     const { categories, posts, sortType,
-            onCreatePost, postUpVote, postDownVote, postEdit, postDelete, postDetail,
+            postEdit, postDetail,
             onSelectAllType,
             onSelectType,
            } = this.props
@@ -92,10 +89,7 @@ class Main extends Component {
               <li key={post.id}>
                 <Post
                   post={post}
-                  postUpVote={(data) => {postUpVote(data)}}
-                  postDownVote={(data) => {postDownVote(data)}}
                   postEdit={(data) => {postEdit(data)}}
-                  postDelete={(data) => {postDelete(data)}}
                   postDetail={(data) => {postDetail(data)}}
                   showDetailBtn = {true}
                   >
