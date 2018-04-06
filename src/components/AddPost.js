@@ -2,20 +2,12 @@ import React, { Component } from 'react'
 import { Link, Route } from 'react-router-dom'
 import serializeForm from 'form-serialize'
 import PropTypes from 'prop-types'
+import { Item, Statistic, Label, FromGroup, Input, Grid, Icon } from 'semantic-ui-react'
+
 import { addPost } from '../actions'
 import { connect } from 'react-redux'
 
 class AddPost extends Component {
-
-    state = {
-      selectCategory : ''
-    }
-
-    setCategorie = (category) => {
-      this.setState(
-        { selectCategory : category }
-      );
-    }
 
     onCancel = () => {
       this.props.history.goBack();
@@ -24,8 +16,8 @@ class AddPost extends Component {
     handleSubmit = (e) => {
       e.preventDefault()
       const values = serializeForm(e.target, {hash: true})
-      values.category = this.state.selectCategory
 
+      console.log('addpost values:', values);
       this.props.addPost(values, () => {
         this.props.history.push('/');
       });
@@ -43,7 +35,7 @@ class AddPost extends Component {
               <div className='create-comment-details'>
               <div>
                 Select Category:
-                <select onChange={event => this.setCategorie(event.target.value)}>
+                <select name='category'>
                   <option value="none" selected>None</option>
                   {categories && categories.map && categories.map((categorie) => (
                     <option value={categorie.name}>{categorie.name}</option>

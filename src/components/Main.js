@@ -3,7 +3,6 @@ import { Link, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Post from './Post.js'
 import '../App.css';
-import { Item, Statistic, Label, Form, Button, Grid, Icon } from 'semantic-ui-react'
 import sortBy from 'sort-by'
 
 import { fetchCategories, fetchPosts, fetchPostsWithType, setSortType } from '../actions'
