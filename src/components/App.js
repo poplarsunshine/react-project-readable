@@ -10,7 +10,6 @@ import AddPost from './AddPost.js'
 import EditComment from './EditComment.js'
 import AddComment from './AddComment.js'
 
-
 class App extends Component {
 
   componentDidMount() {
@@ -20,25 +19,15 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-
         <div className="App">
-
           <Route exact path='/' component={ Main }/>
-
           <Route exact path='/:category' component={ Main }/>
-
           <Route exact path='/readable/post/add' component={ AddPost } />
-
           <Route exact path='/:category/:postId/editPost' component={ EditPost }/>
-
           <Route exact path='/:category/:id' component={ PostDetail }/>
-
           <Route exact path='/:category/:id/addComment' component={ AddComment }/>
-
           <Route exact path='/:postId/:commentId/editComment' component={ EditComment }/>
-
         </div>
-
       </BrowserRouter>
     );
   }

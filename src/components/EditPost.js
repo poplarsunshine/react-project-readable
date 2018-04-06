@@ -30,24 +30,24 @@ class EditPost extends Component {
           post = postList.length > 0 ? postList[0] : {} ;
       }
 
-        return (
-          <div>
+      return (
+        <div>
           <h1>
             Edit Post
           </h1>
-            <h1 className='close-create-comment' onClick={() => this.onCancel()}>Close</h1>
-            <form onSubmit={this.handleSubmit} className='create-comment-form'>
-              <div className='create-comment-details'>
-                title:
-                <input type='text' name='title' placeholder='Title' defaultValue={post.title}></input>
-                body:
-                <input type='text' name='body' placeholder='Body' defaultValue={post.body}></input>
-                <button className="btn-green">Submit</button>
-              </div>
-            </form>
-          </div>
-       )
-    }
+          <h1 className='close-create-comment' onClick={() => this.onCancel()}>Close</h1>
+          <form onSubmit={this.handleSubmit} className='create-comment-form'>
+            <div className='create-comment-details'>
+              title:
+              <input type='text' name='title' placeholder='Title' defaultValue={post.title}></input>
+              body:
+              <input type='text' name='body' placeholder='Body' defaultValue={post.body}></input>
+              <button className="btn-green">Submit</button>
+            </div>
+          </form>
+        </div>
+      )
+   }
 }
 
 function mapStateToProps ({ posts }) {

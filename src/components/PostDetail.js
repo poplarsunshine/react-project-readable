@@ -36,44 +36,44 @@ class PostDetail extends Component {
           postComments = this.props.comments[postId]
       }
 
-        return (
-          <div>
-            <h1>
-              Post Detail
-            </h1>
+      return (
+        <div>
+          <h1>
+            Post Detail
+          </h1>
 
-            <h1 className='close-create-comment' onClick={() => this.onCancel()}>Close</h1>
+          <h1 className='close-create-comment' onClick={() => this.onCancel()}>Close</h1>
 
-            <Post className='post-detail'
-              post = {post}
-              history={this.props.history}
-            >
-            </Post>
+          <Post className='post-detail'
+            post = {post}
+            history={this.props.history}
+          >
+          </Post>
 
-            <br/>
-            <br/>
-            <Link
-              to = {{
-                pathname: `/${post.category}/${post.id}/addComment`
-              }}
-            >Add Comment</Link>
+          <br/>
+          <br/>
+          <Link
+            to = {{
+              pathname: `/${post.category}/${post.id}/addComment`
+            }}
+          >Add Comment</Link>
 
-            <div className="comments">
-              <ol className='comment-list'>
-                {postComments && postComments.map && postComments.map((comment) => (
-                  <li key={comment.id}>
-                    <Comment
-                      comment={comment}
-                      history={this.props.history}
-                      >
-                    </Comment>
-                  </li>
-                ))}
-              </ol>
-            </div>
+          <div className="comments">
+            <ol className='comment-list'>
+              {postComments && postComments.map && postComments.map((comment) => (
+                <li key={comment.id}>
+                  <Comment
+                    comment={comment}
+                    history={this.props.history}
+                    >
+                  </Comment>
+                </li>
+              ))}
+            </ol>
           </div>
-       )
-    }
+        </div>
+     )
+   }
 }
 
 function mapStateToProps ({ posts, comments }) {

@@ -31,22 +31,22 @@ class EditComment extends Component {
           comment = commentList.length > 0 ? commentList[0] : {} ;
       }
 
-        return (
-          <div>
-          <h1>
-            Edit Comment
-          </h1>
-          <h1 className='close-create-comment' onClick={() => this.onCancel()}>Close</h1>
-            <form onSubmit={this.handleSubmit} className='create-comment-form'>
-              <div className='create-comment-details'>
-                body:
-                <input type='text' name='body' placeholder='Body' defaultValue={comment.body}></input>
-                <button className="btn-green">Submit</button>
-              </div>
-            </form>
-          </div>
-       )
-    }
+      return (
+        <div>
+        <h1>
+          Edit Comment
+        </h1>
+        <h1 className='close-create-comment' onClick={() => this.onCancel()}>Close</h1>
+          <form onSubmit={this.handleSubmit} className='create-comment-form'>
+            <div className='create-comment-details'>
+              body:
+              <input type='text' name='body' placeholder='Body' defaultValue={comment.body}></input>
+              <button className="btn-green">Submit</button>
+            </div>
+          </form>
+        </div>
+     )
+   }
 }
 
 function mapStateToProps ({ comments }) {
