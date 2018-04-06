@@ -42,7 +42,7 @@ class EditPost extends Component {
                 <input type='text' name='title' placeholder='Title' defaultValue={post.title}></input>
                 body:
                 <input type='text' name='body' placeholder='Body' defaultValue={post.body}></input>
-                <button>Submit</button>
+                <button className="btn-green">Submit</button>
               </div>
             </form>
           </div>

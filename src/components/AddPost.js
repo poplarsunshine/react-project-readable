@@ -33,20 +33,20 @@ class AddPost extends Component {
             <h1 className='close-create-comment' onClick={() => this.onCancel()}>Close</h1>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>
-              <div>
-                Select Category:
-                <select name='category'>
-                  <option value="none" selected>None</option>
-                  {categories && categories.map && categories.map((categorie) => (
-                    <option value={categorie.name}>{categorie.name}</option>
-                  ))}
-                </select>
-              </div>
-              <br/>
+                <div>
+                  Select Category:
+                  <select name='category'>
+                    <option value="none" selected>None</option>
+                    {categories && categories.map && categories.map((categorie) => (
+                      <option value={categorie.name}>{categorie.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <br/>
                 <input type='text' name='title' placeholder='Title'></input>
                 <input type='text' name='body' placeholder='Body'></input>
-                <input type='text' name='author' placeholder='Author'></input>
-                <button>Submit</button>
+                <input cotent-row type='text' name='author' placeholder='Author'></input>
+                <button className="btn-green">Submit</button>
               </div>
             </form>
           </div>

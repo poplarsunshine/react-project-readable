@@ -17,7 +17,7 @@ class PostDetail extends Component {
     onCancel = () => {
       this.props.history.goBack();
     }
-    
+
     componentDidMount() {
       this.props.fetchComments(this.props.match.params.id);
     }
@@ -50,6 +50,8 @@ class PostDetail extends Component {
             >
             </Post>
 
+            <br/>
+            <br/>
             <Link
               to = {{
                 pathname: `/${post.category}/${post.id}/addComment`

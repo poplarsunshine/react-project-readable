@@ -54,6 +54,25 @@ body {
   top: 25px;
 }
 
+/* button Style */
+
+.btn-green {
+  background: #30a64a;
+  height: 35px;
+}
+
+.btn-blue {
+  background: #157efb;
+}
+
+.btn-red {
+  background: #da3849;
+}
+
+.btn-yellow {
+  background: #fdc02f;
+}
+
 /* Edit Comment */
 .close-create-comment {
   display: block;
@@ -78,6 +97,7 @@ body {
 
 .cotent-row {
   display: flex;
+  height: 35px;
 }
 
 .text-left {

@@ -77,23 +77,23 @@ class Post extends Component {
               onClick={() => this.props.postUpVote(post, () => {
                 // this.props.fetchPosts();
               })}>
-              Vote Up
+              Vote Up 👍
             </button>
             <button class="ui button"
               onClick={() => this.props.postDownVote(post, () => {
                 // this.props.fetchPosts();
               })}>
-              Vote Down
+              Vote Down 👎
             </button>
           </div>
 
           <br/>
           <div className="cotent-row">
-            <button class="ui primary button"
+            <button class="ui primary button" className='btn-yellow'
               onClick={() => this.postEdit(post)}>
               Edit
             </button>
-            <button class="ui button"
+            <button class="ui button" className='btn-red'
               onClick={() => this.props.postDelete(post , () => {
                 if (!showDetailBtn) {
                   this.props.history.goBack();

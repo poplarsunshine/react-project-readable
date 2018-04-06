@@ -41,7 +41,7 @@ class EditComment extends Component {
               <div className='create-comment-details'>
                 body:
                 <input type='text' name='body' placeholder='Body' defaultValue={comment.body}></input>
-                <button>Submit</button>
+                <button className="btn-green">Submit</button>
               </div>
             </form>
           </div>

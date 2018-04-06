@@ -55,21 +55,21 @@ class Comment extends Component {
           <div className="cotent-row">
             <button class="ui primary button"
               onClick={() => this.props.commentUpVote(comment)}>
-              Vote Up
+              Vote Up 👍
             </button>
             <button class="ui button"
               onClick={() => this.props.commentDownVote(comment)}>
-              Vote Down
+              Vote Down 👎
             </button>
           </div>
 
           <br/>
           <div className="cotent-row">
-            <button class="ui primary button"
+            <button class="ui primary button"  className='btn-yellow'
               onClick={() => this.onCommentEdit(comment)}>
               Edit
             </button>
-            <button class="ui button"
+            <button class="ui button"  className='btn-red'
               onClick={() => this.props.commentDelete(comment)}>
               Delete
             </button>

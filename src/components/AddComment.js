@@ -28,7 +28,7 @@ class AddComment extends Component {
               <div className='create-comment-details'>
                 <input type='text' name='body' placeholder='Body'></input>
                 <input type='text' name='author' placeholder='Author'></input>
-                <button>Submit</button>
+                <button className="btn-green">Submit</button>
               </div>
             </form>
           </div>
