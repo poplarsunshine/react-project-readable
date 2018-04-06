@@ -10,18 +10,27 @@ import AddPost from './AddPost.js'
 import EditComment from './EditComment.js'
 import AddComment from './AddComment.js'
 
+import { fetchCategories, fetchPosts } from '../actions'
+import { connect } from 'react-redux'
+
 class App extends Component {
 
   componentDidMount() {
     console.log('App componentDidMount');
+    this.props.fetchCategories();
+    this.props.fetchPosts();
   }
 
   render() {
+    const { categories } = this.props
+
     return (
       <BrowserRouter>
         <div className="App">
           <Route exact path='/' component={ Main }/>
-          <Route exact path='/:category' component={ Main }/>
+          {categories && categories.map && categories.map((category) => (
+            <Route exact path={'/' + category.path} component={ Main }/>
+          ))}
           <Route exact path='/readable/post/add' component={ AddPost } />
           <Route exact path='/:category/:postId/editPost' component={ EditPost }/>
           <Route exact path='/:category/:id' component={ PostDetail }/>
@@ -33,4 +42,20 @@ class App extends Component {
   }
 }
 
-export default App
+function mapStateToProps ({ categories, posts, sortType }) {
+    return {
+        categories,
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        fetchCategories: (data) => dispatch(fetchCategories(data)),
+        fetchPosts: (data) => dispatch(fetchPosts(data)),
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App)

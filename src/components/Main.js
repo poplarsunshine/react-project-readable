@@ -12,8 +12,6 @@ class Main extends Component {
 
   componentDidMount() {
     console.log('Main componentDidMount');
-    this.props.fetchCategories();
-    this.props.fetchPosts();
   }
 
   render() {
