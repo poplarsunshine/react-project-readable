@@ -5,7 +5,7 @@ import Post from './Post.js'
 import Comment from './Comment.js'
 import * as ReadableAPI from '../utils/api'
 
-import { fetchComments } from '../actions'
+import { fetchPosts, fetchComments } from '../actions'
 import { connect } from 'react-redux'
 
 class PostDetail extends Component {
@@ -19,6 +19,8 @@ class PostDetail extends Component {
     }
 
     componentDidMount() {
+      console.log('PostDetail componentDidMount postId', this.props.match.params.id);
+      this.props.fetchPosts();
       this.props.fetchComments(this.props.match.params.id);
     }
 
@@ -30,6 +32,7 @@ class PostDetail extends Component {
           const postList = this.props.posts.data.filter(post => post.id === postId);
           post = postList.length > 0 ? postList[0] : {} ;
       }
+      console.log('post', post);
 
       let postComments = {}
       if(this.props.comments && this.props.comments[postId]){
@@ -85,6 +88,7 @@ function mapStateToProps ({ posts, comments }) {
 
 function mapDispatchToProps (dispatch) {
     return {
+      fetchPosts: (data) => dispatch(fetchPosts(data)),
       fetchComments: (data) => dispatch(fetchComments(data)),
     }
 }

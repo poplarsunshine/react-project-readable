@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { commentDownVote, commentUpVote, commentDelete } from '../actions'
+import { fetchPosts, commentDownVote, commentUpVote, commentDelete } from '../actions'
 import { connect } from 'react-redux'
 
 class Comment extends Component {
@@ -70,7 +70,9 @@ class Comment extends Component {
             Edit
           </button>
           <button class="ui button"  className='btn-red'
-            onClick={() => this.props.commentDelete(comment)}>
+            onClick={() => this.props.commentDelete(comment, () => {
+              this.props.fetchPosts();
+            })}>
             Delete
           </button>
         </div>
@@ -87,6 +89,7 @@ function mapStateToProps ({ categories, posts }) {
 
 function mapDispatchToProps (dispatch) {
     return {
+        fetchPosts: (data) => dispatch(fetchPosts(data)),
         commentDownVote: (data, callback) => dispatch(commentDownVote(data, callback)),
         commentUpVote: (data, callback) => dispatch(commentUpVote(data, callback)),
         commentDelete: (data, callback) => dispatch(commentDelete(data, callback)),

@@ -199,7 +199,7 @@ export function commentDelete(data, callback) {
   return dispatch => {
     ReadableAPI.commentDelete(data).then(
       (result) => {
-        // callback()
+        callback()
         dispatch(actionDeletePostComment(result));
       }
     )
