@@ -10,18 +10,8 @@ import { connect } from 'react-redux'
 
 class PostDetail extends Component {
 
-    static propTypes = {
-      commentUpdate : PropTypes.func.isRequired,
-    }
-
     handleSubmit = (e) => {
       e.preventDefault()
-    }
-
-    commentEdit = (data) => {
-      console.log('commentEdit body:', data.body);
-      const { commentUpdate } = this.props;
-      commentUpdate(data);
     }
 
     componentDidMount() {
@@ -66,7 +56,7 @@ class PostDetail extends Component {
                   <li key={comment.id}>
                     <Comment
                       comment={comment}
-                      commentEdit={(data) => {this.commentEdit(data)}}
+                      history={this.props.history}
                       >
                     </Comment>
                   </li>

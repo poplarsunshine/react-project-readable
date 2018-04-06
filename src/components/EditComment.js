@@ -2,25 +2,41 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import serializeForm from 'form-serialize'
 
+import { commentEdit } from '../actions'
+import { connect } from 'react-redux'
+
 class EditComment extends Component {
 
     handleSubmit = (e) => {
       e.preventDefault()
       const values = serializeForm(e.target, {hash: true})
-      if (this.props.onUpdateComment)
-        this.props.onUpdateComment(values, this.props.comment)
+      values.id = this.props.match.params.commentId
+      this.props.commentEdit(values, () => {
+        this.props.history.goBack();
+      })
+    }
+
+    onUpdateCommentCancel = (comment) => {
+      this.props.history.goBack();
     }
 
     render() {
-      const { comment, onUpdateComment, onUpdateCommentCancel } = this.props
-      console.log('EditComment body:', comment.body);
+      let postId = this.props.match.params.postId
+      let commentId = this.props.match.params.commentId
+
+      let comments = this.props.comments[postId]
+      let comment = {}
+      if(comments && comments.map){
+          const commentList = comments.filter(comment => comment.id === commentId)
+          comment = commentList.length > 0 ? commentList[0] : {} ;
+      }
 
         return (
           <div>
           <h1>
             Edit Comment
           </h1>
-          <h1 className='close-create-comment' onClick={() => onUpdateCommentCancel()}>Close</h1>
+          <h1 className='close-create-comment' onClick={() => this.onUpdateCommentCancel()}>Close</h1>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>
                 body:
@@ -33,4 +49,19 @@ class EditComment extends Component {
     }
 }
 
-export default EditComment
+function mapStateToProps ({ comments }) {
+    return {
+      comments
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        commentEdit: (data, callback) => dispatch(commentEdit(data, callback)),
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(EditComment)

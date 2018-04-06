@@ -11,6 +11,10 @@ class Comment extends Component {
     commentEdit : PropTypes.func.isRequired,
   }
 
+  onCommentEdit = (comment) => {
+    this.props.history.push("/" + comment.parentId + "/" + comment.id + '/editComment');
+  }
+
   render() {
     const { comment, commentEdit } = this.props
       return (
@@ -63,7 +67,7 @@ class Comment extends Component {
           <br/>
           <div className="cotent-row">
             <button class="ui primary button"
-              onClick={() => commentEdit(comment)}>
+              onClick={() => this.onCommentEdit(comment)}>
               Edit
             </button>
             <button class="ui button"

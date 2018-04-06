@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import serializeForm from 'form-serialize'
+
 import { postEdit } from '../actions'
 import { connect } from 'react-redux'
 
