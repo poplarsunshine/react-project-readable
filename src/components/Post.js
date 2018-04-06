@@ -8,8 +8,6 @@ class Post extends Component {
 
   static propTypes = {
     post : PropTypes.object.isRequired,
-    postEdit : PropTypes.func.isRequired,
-    postDetail : PropTypes.func.isRequired,
   }
 
   postEdit = (post) => {
@@ -20,9 +18,8 @@ class Post extends Component {
     this.props.history.push("/" + post.category + "/" + post.id);
   }
 
-
   render() {
-    const { post, postEdit, postDetail, showDetailBtn } = this.props
+    const { post, showDetailBtn } = this.props
       return (
           <div className='post-grid'>
           <div className="cotent-row">

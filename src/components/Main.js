@@ -11,13 +11,8 @@ import { connect } from 'react-redux'
 
 class Main extends Component {
 
-  state = {
-    // curPost : {},
-    // curComment : {},
-  }
-
   static propTypes = {
-    postDetail : PropTypes.func.isRequired,
+
   }
 
   componentDidMount() {
@@ -27,9 +22,7 @@ class Main extends Component {
   }
 
   render() {
-    const { categories, posts, sortType,
-            postDetail,
-           } = this.props
+    const { categories, posts, sortType } = this.props
 
     let postsData = {}
     if(posts && posts.data){
@@ -39,7 +32,6 @@ class Main extends Component {
 
     return (
       <div>
-
         <h1>
           Readable
         </h1>
@@ -85,7 +77,6 @@ class Main extends Component {
               <li key={post.id}>
                 <Post
                   post={post}
-                  postDetail={(data) => {postDetail(data)}}
                   showDetailBtn = {true}
                   history={this.props.history}
                   >

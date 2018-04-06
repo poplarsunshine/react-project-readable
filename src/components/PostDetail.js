@@ -68,7 +68,7 @@ class PostDetail extends Component {
     }
 }
 
-function mapStateToProps ({ comments, posts }) {
+function mapStateToProps ({ posts, comments }) {
     return {
       posts,
       comments

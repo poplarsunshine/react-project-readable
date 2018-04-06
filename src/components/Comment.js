@@ -8,7 +8,6 @@ class Comment extends Component {
 
   static propTypes = {
     comment : PropTypes.object.isRequired,
-    commentEdit : PropTypes.func.isRequired,
   }
 
   onCommentEdit = (comment) => {
@@ -16,7 +15,7 @@ class Comment extends Component {
   }
 
   render() {
-    const { comment, commentEdit } = this.props
+    const { comment } = this.props
       return (
         <div className='comment-grid'>
           <div className="cotent-row">

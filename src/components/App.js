@@ -13,38 +13,31 @@ import AddComment from './AddComment.js'
 
 class App extends Component {
 
-  state = {
-    curPost : {},
-    curComment : {},
-  }
-
   componentDidMount() {
     console.log('App componentDidMount');
   }
 
   render() {
-    const { post } = this.state
-
     return (
       <BrowserRouter>
 
-      <div className="App">
+        <div className="App">
 
-        <Route exact path='/' component={ Main }/>
+          <Route exact path='/' component={ Main }/>
 
-        <Route exact path='/:category' component={ Main }/>
+          <Route exact path='/:category' component={ Main }/>
 
-        <Route exact path='/readable/post/add' component={ AddPost } />
+          <Route exact path='/readable/post/add' component={ AddPost } />
 
-        <Route exact path='/:category/:postId/editPost' component={ EditPost }/>
+          <Route exact path='/:category/:postId/editPost' component={ EditPost }/>
 
-        <Route exact path='/:category/:id' component={ PostDetail }/>
+          <Route exact path='/:category/:id' component={ PostDetail }/>
 
-        <Route exact path='/:category/:id/addComment' component={ AddComment }/>
+          <Route exact path='/:category/:id/addComment' component={ AddComment }/>
 
-        <Route exact path='/:postId/:commentId/editComment' component={ EditComment }/>
+          <Route exact path='/:postId/:commentId/editComment' component={ EditComment }/>
 
-      </div>
+        </div>
 
       </BrowserRouter>
     );
