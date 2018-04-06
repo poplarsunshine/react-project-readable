@@ -14,6 +14,10 @@ class PostDetail extends Component {
       e.preventDefault()
     }
 
+    onCancel = () => {
+      this.props.history.goBack();
+    }
+    
     componentDidMount() {
       this.props.fetchComments(this.props.match.params.id);
     }
@@ -37,7 +41,9 @@ class PostDetail extends Component {
             <h1>
               Post Detail
             </h1>
-            <Link className='close-create-comment' to='/'>Close</Link>
+
+            <h1 className='close-create-comment' onClick={() => this.onCancel()}>Close</h1>
+
             <Post className='post-detail'
               post = {post}
               history={this.props.history}

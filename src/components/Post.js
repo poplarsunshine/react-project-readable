@@ -95,7 +95,9 @@ class Post extends Component {
             </button>
             <button class="ui button"
               onClick={() => this.props.postDelete(post , () => {
-                // this.props.history.push('/');
+                if (!showDetailBtn) {
+                  this.props.history.goBack();
+                }
               })}>
               Delete
             </button>

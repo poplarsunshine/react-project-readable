@@ -16,7 +16,7 @@ class EditComment extends Component {
       })
     }
 
-    onUpdateCommentCancel = (comment) => {
+    onCancel = () => {
       this.props.history.goBack();
     }
 
@@ -36,7 +36,7 @@ class EditComment extends Component {
           <h1>
             Edit Comment
           </h1>
-          <h1 className='close-create-comment' onClick={() => this.onUpdateCommentCancel()}>Close</h1>
+          <h1 className='close-create-comment' onClick={() => this.onCancel()}>Close</h1>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>
                 body:

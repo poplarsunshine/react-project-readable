@@ -17,6 +17,10 @@ class EditPost extends Component {
       })
     }
 
+    onCancel = () => {
+      this.props.history.goBack();
+    }
+
     render() {
 
       let postId = this.props.match.params.postId
@@ -31,7 +35,7 @@ class EditPost extends Component {
           <h1>
             Edit Post
           </h1>
-            <Link className='close-create-comment' to='/'>Close</Link>
+            <h1 className='close-create-comment' onClick={() => this.onCancel()}>Close</h1>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>
                 title:

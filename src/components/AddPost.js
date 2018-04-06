@@ -17,6 +17,10 @@ class AddPost extends Component {
       );
     }
 
+    onCancel = () => {
+      this.props.history.goBack();
+    }
+
     handleSubmit = (e) => {
       e.preventDefault()
       const values = serializeForm(e.target, {hash: true})
@@ -34,7 +38,7 @@ class AddPost extends Component {
           <h1>
             Add Post
           </h1>
-            <Link className='close-create-comment' to='/'>Close</Link>
+            <h1 className='close-create-comment' onClick={() => this.onCancel()}>Close</h1>
             <form onSubmit={this.handleSubmit} className='create-comment-form'>
               <div className='create-comment-details'>
               <div>
