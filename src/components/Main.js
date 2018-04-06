@@ -23,6 +23,8 @@ class Main extends Component {
   render() {
     const { categories, posts, sortType } = this.props
 
+    console.log('Main render sortType', sortType);
+
     let postsData = {}
     if(posts && posts.data){
       postsData = posts.data

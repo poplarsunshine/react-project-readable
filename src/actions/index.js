@@ -36,10 +36,10 @@ function setCategories (data) {
 /*
 Actions for sort
 */
-export function setSortType (type) {
+export function setSortType (sortType) {
   return {
     type : SET_SORT_TYPE,
-    sortType : type
+    sortType
   }
 }
 
