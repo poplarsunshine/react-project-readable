@@ -21,7 +21,7 @@ class Post extends Component {
   render() {
     const { post, showDetailBtn } = this.props
       return (
-          <div className='post-grid'>
+        <div className='post-grid'>
           <div className="cotent-row">
             <div className="text-left">
                 Title:
@@ -108,7 +108,7 @@ class Post extends Component {
               </button>
             )}
           </div>
-          </div>
+        </div>
        )
     }
 }

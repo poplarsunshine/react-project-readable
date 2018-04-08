@@ -3,6 +3,7 @@ import { Link, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Post from './Post.js'
 import Comment from './Comment.js'
+import NotFound from './NotFound.js'
 import * as ReadableAPI from '../utils/api'
 
 import { fetchPosts, fetchComments } from '../actions'
@@ -25,6 +26,7 @@ class PostDetail extends Component {
     }
 
     render() {
+      let category = this.props.match.params.category
       let postId = this.props.match.params.id
       console.log('match.params.postId:', postId);
       let post = {}
@@ -40,6 +42,9 @@ class PostDetail extends Component {
       }
 
       return (
+        !(post && post.category === category) ?
+        <NotFound/>
+        :
         <div>
           <h1>
             Post Detail

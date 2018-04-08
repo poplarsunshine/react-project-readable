@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Link, BrowserRouter, Route } from 'react-router-dom'
+import { Link, BrowserRouter, Route, Switch } from 'react-router-dom'
 import * as ReadableAPI from '../utils/api'
 
 import Main from './Main.js'
@@ -9,6 +9,7 @@ import EditPost from './EditPost.js'
 import AddPost from './AddPost.js'
 import EditComment from './EditComment.js'
 import AddComment from './AddComment.js'
+import NotFound from './NotFound.js'
 
 import { fetchCategories, fetchPosts } from '../actions'
 import { connect } from 'react-redux'
@@ -27,15 +28,17 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Route exact path='/' component={ Main }/>
-          {categories && categories.map && categories.map((category) => (
-            <Route exact path={'/' + category.path} component={ Main }/>
-          ))}
-          <Route exact path='/readable/post/add' component={ AddPost } />
-          <Route exact path='/:category/:postId/editPost' component={ EditPost }/>
-          <Route exact path='/:category/:id' component={ PostDetail }/>
-          <Route exact path='/:category/:id/addComment' component={ AddComment }/>
-          <Route exact path='/:postId/:commentId/editComment' component={ EditComment }/>
+          <Switch>
+            <Route exact path='/' component={ Main }/>
+            {categories && categories.map && categories.map((category) => (
+              <Route exact path={'/' + category.path} component={ Main }/>
+            ))}
+            <Route exact path='/readable/post/add' component={ AddPost } />
+            <Route exact path='/:category/:postId/editPost' component={ EditPost }/>
+            <Route exact path='/:category/:id' component={ PostDetail }/>
+            <Route exact path='/:category/:id/addComment' component={ AddComment }/>
+            <Route exact path='/:postId/:commentId/editComment' component={ EditComment }/>
+          </Switch>
         </div>
       </BrowserRouter>
     );
